@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="form">
+<p><input type="text" placeholder="Enter Username:" id="user" name="user"></p>
+<p><input type="button" value=Submit></p>
+<p><input type="text" placeholder="Enter Home Address:" id="address" name="address"></p>
+<p><input type="button" value=Home></p>
+</div>
+<script src="app.js"></script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0&libraries=places&callback=initMap">
+		</script>
+{% endblock %}
