@@ -98,61 +98,6 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
-/* async function calculateDistances(data, origin) {
-	const places = [];
-	const destinations = [];
-
-	// Build parallel arrays for the place IDs and destinations
-	data.forEach((place) => {
-		const placeNum = place.getProperty('place_id');
-		const placeLoc = place.getGeometry().get();
-
-		places.push(placeNum);
-		destinations.push(placeLoc);
-	});
-
-	// Retrieve the distances of each place from the origin
-	// The returned list will be in the same order as the destinations list
-	const service = new google.maps.DistanceMatrixService();
-	const getDistanceMatrix =
-		(service, parameters) => new Promise((resolve, reject) => {
-			service.getDistanceMatrix(parameters, (response, status) => {
-				if (status != google.maps.DistanceMatrixStatus.OK) {
-					reject(response);
-				} else {
-					const distances = [];
-					const results = response.rows[0].elements;
-					for (let j = 0; j < results.length; j++) {
-						const element = results[j];
-						const distanceText = element.distance.text;
-						const distanceVal = element.distance.value;
-						const distanceObject = {
-							placeid: places[j],
-							distanceText: distanceText,
-							distanceVal: distanceVal,
-						};
-						distances.push(distanceObject);
-					}
-
-					resolve(distances);
-				}
-			});
-		});
-
-	const distancesList = await getDistanceMatrix(service, {
-		origins: [origin],
-		destinations: destinations,
-		travelMode: 'DRIVING',
-		unitSystem: google.maps.UnitSystem.METRIC,
-	});
-
-	distancesList.sort((first, second) => {
-		return first.distanceVal - second.distanceVal;
-	});
-
-	return distancesList;
-}*/
-
 function initMap() {
 	//	const username = document.getElementById('user').value;
 	const map = new google.maps.Map(document.getElementById('map'), {
@@ -164,18 +109,21 @@ function initMap() {
 		},
 	});
 
-	// Defines the custom marker icons using place's category
-	map.data.setStyle((feature) => {
-		return {
-			icon: {
-				url: `img/icon_${feature.getProperty('category')}.png`,
-				scaledSize: new google.maps.Size(64, 64),
-			},
-		};
-	});
-
 	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
 
+	// Defines the custom marker icons using place's category
+	map.data.setStyle((feature) => {
+		var img = `./img/icon_${feature.getProperty('category')}.png`;
+		var geo = `${feature.getGeometry().get()}`;
+		console.log(geo);
+		return {	
+			icon: {
+				url: img,
+				scaledSize: new google.maps.Size(64, 64),
+			}
+		};
+	});
+	
 	const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 	const infoWindow = new google.maps.InfoWindow();
 
@@ -244,6 +192,7 @@ function initMap() {
 		const date = event.feature.getProperty('date');
 		const time = event.feature.getProperty('time');
 		const position = event.feature.getGeometry().get();
+		console.log(position);
 		const content = `
 			<img style="float:left; width:200px; margin-top:30px" src="img/logo_${category}.png">
 			<div style="margin-left:220px; margin-bottom:20px;">
@@ -292,7 +241,7 @@ function initMap() {
 	var originLocation = map.getCenter();
 	console.log(originLocation);
 
-	autocomplete.addListener('place_changed', async => {
+	autocomplete.addListener('place_changed', async () => {
 		originMarker.setVisible(false);
 		originLocation = map.getCenter();
 		const place = autocomplete.getPlace();
@@ -311,13 +260,73 @@ function initMap() {
 		originMarker.setPosition(originLocation);
 		originMarker.setVisible(true);
 
-	/*	const eventsList = await calculateDistances(map.data, originLocation);
-		showEventsList(map.data, eventsList);*/
+		const eventsList = await calculateDistances(map.data, originLocation);
+		showEventsList(map.data, eventsList);
 
 		return;
 	});
 }
 
+function placeMarker(placeLocation) {
+	var marker = new google.maps.Data.Feature({
+		geometry: placeLocation
+	});
+}
+
+async function calculateDistances(data, origin) {
+	const places = [];
+	const destinations = [];
+
+	// Build parallel arrays for the place IDs and destinations
+	data.forEach((place) => {
+		const placeId = place.getProperty('place_id');
+		const placeLoc = place.getGeometry().get();
+
+		places.push(placeId);
+		destinations.push(placeLoc);
+	});
+
+	// Retrieve the distances of each place from the origin
+	// The returned list will be in the same order as the destinations list
+	const service = new google.maps.DistanceMatrixService();
+	const getDistanceMatrix =
+		(service, parameters) => new Promise((resolve, reject) => {
+			service.getDistanceMatrix(parameters, (response, status) => {
+				if (status != google.maps.DistanceMatrixStatus.OK) {
+					reject(response);
+				} else {
+					const distances = [];
+					const results = response.rows[0].elements;
+					for (let j = 0; j < results.length; j++) {
+						const element = results[j];
+						const distanceText = element.distance.text;
+						const distanceVal = element.distance.value;
+						const distanceObject = {
+							placeid: places[j],
+							distanceText: distanceText,
+							distanceVal: distanceVal,
+						};
+						distances.push(distanceObject);
+					}
+
+					resolve(distances);
+				}
+			});
+		});
+
+	const distancesList = await getDistanceMatrix(service, {
+		origins: [origin],
+		destinations: destinations,
+		travelMode: 'DRIVING',
+		unitSystem: google.maps.UnitSystem.METRIC,
+	});
+
+	distancesList.sort((first, second) => {
+		return first.distanceVal - second.distanceVal;
+	});
+
+	return distancesList;
+}
 
 // Displays list of calendar events
 function showEventsList(data, places) {
@@ -399,3 +408,23 @@ function CenterHome(controlElement, map, center) {
 		map.setCenter(current);
 	});
 }
+
+/*google.maps.Map.prototype.getGeoJson = function(callback) {
+	var geojson = {"type": "FeatureCollection", "features": []},
+		func = function(place) {
+			place = (place.get)?place.get():place;
+			return([place.lng(), place.lat()]);
+		};
+	this.data.forEach(function(marker) {
+		var _feature = {type: 'Feature', properties: {}}
+		var _id = marker.getId(),
+		var _geometry = marker.getGeometry(),
+		var _type = _geometry.getType(),
+		var _latlng = func(_geometry);
+		_feature.geometry = {type: _type, coordinates: _latlng};
+		_feature.id = _id;
+		geojson.features.push(_feature);
+	});
+	callback(geojson);
+	return geojson;
+}*/
