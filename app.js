@@ -1,3 +1,19 @@
+'use strict';
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var path = require('path');
+
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
+
+app.use(express.urlencoded({ extended: false }));
+
+app.get('/', function(req, res) {
+	res.sendFile(path.join(__dirname + "/templates/landing.html")
+	)
+});
+
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -13,14 +29,14 @@ const mapStyle = [{
 		'featureType': 'landscape',
 		'elementType': 'all',
 		'stylers': [{
-			'color': '#f2e5d4',
+			'color': '#f0e4e3',
 		}],
 	},
 	{
 		'featureType': 'poi.park',
 		'elementType': 'geometry',
 		'stylers': [{
-			'color': '#c5dac6',
+			'color': '#c2dbc5',
 		}],
 	},
 	{
@@ -38,21 +54,21 @@ const mapStyle = [{
 		'featureType': 'road.highway',
 		'elementType': 'geometry',
 		'stylers': [{
-			'color': '#c5c6c6',
+			'color': '#c5f5f5',
 		}],
 	},
 	{
 		'featureType': 'road.arterial',
 		'elementType': 'geometry',
 		'stylers': [{
-			'color': '#e4d7c6',
+			'color': '#e2dac5',
 		}],
 	},
 	{
 		'featureType': 'road.local',
 		'elementType': 'geometry',
 		'stylers': [{
-			'color': '#fbfaf7',
+			'color': '#fbebf2',
 		}],
 	},
 	{
@@ -62,7 +78,7 @@ const mapStyle = [{
 			'visibility': 'on',
 		},
 			{
-				'color': '#acbcc9',
+				'color': '#fcb339',
 			},
 		],
 	},
@@ -87,19 +103,74 @@ var customLabel = {
 };
 
 function getURL(url, callback) {
-		req.onreadystatechange = function() {
-			if(req.readyState == 4) {
-				req.onreadystatechange = doNothing;
-				callback(req, req.status);
-			}
-		};
+	req.onreadystatechange = function() {
+		if(req.readyState == 4) {
+			req.onreadystatechange = doNothing;
+			callback(req, req.status);
+		}
+	};
 
-		req.open('GET', url, true);
-		req.send(null);
-	}
+	req.open('GET', url, true);
+	req.send(null);
+}
+
+/* async function calculateDistances(data, origin) {
+	const places = [];
+	const destinations = [];
+
+	// Build parallel arrays for the place IDs and destinations
+	data.forEach((place) => {
+		const placeNum = place.getProperty('place_id');
+		const placeLoc = place.getGeometry().get();
+
+		places.push(placeNum);
+		destinations.push(placeLoc);
+	});
+
+	// Retrieve the distances of each place from the origin
+	// The returned list will be in the same order as the destinations list
+	const service = new google.maps.DistanceMatrixService();
+	const getDistanceMatrix =
+		(service, parameters) => new Promise((resolve, reject) => {
+			service.getDistanceMatrix(parameters, (response, status) => {
+				if (status != google.maps.DistanceMatrixStatus.OK) {
+					reject(response);
+				} else {
+					const distances = [];
+					const results = response.rows[0].elements;
+					for (let j = 0; j < results.length; j++) {
+						const element = results[j];
+						const distanceText = element.distance.text;
+						const distanceVal = element.distance.value;
+						const distanceObject = {
+							placeid: places[j],
+							distanceText: distanceText,
+							distanceVal: distanceVal,
+						};
+						distances.push(distanceObject);
+					}
+
+					resolve(distances);
+				}
+			});
+		});
+
+	const distancesList = await getDistanceMatrix(service, {
+		origins: [origin],
+		destinations: destinations,
+		travelMode: 'DRIVING',
+		unitSystem: google.maps.UnitSystem.METRIC,
+	});
+
+	distancesList.sort((first, second) => {
+		return first.distanceVal - second.distanceVal;
+	});
+
+	return distancesList;
+}*/
 
 function initMap() {
-//	const username = document.getElementById('user').value;
+	//	const username = document.getElementById('user').value;
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 11,
 		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland
@@ -118,14 +189,14 @@ function initMap() {
 			},
 		};
 	});
-	
-	map.data.loadGeoJson('places.json', {idPropertyName: 'storeid'});
+
+	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
 
 	const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 	const infoWindow = new google.maps.InfoWindow();
 
 
-/*	getURL('users.json', function (data) {
+	/*	getURL('users.json', function (data) {
 		var newUser = true;
 		var user = json.documentElement.getElementsByTagName('users');
 		Array.prototype.forEach.call(users, function(userElem) {
@@ -136,7 +207,7 @@ function initMap() {
 			}
 		});
 		if(newUser) {
-			// ADD USER AND HOME TO DATABASE
+	// ADD USER AND HOME TO DATABASE
 	}
 	var icon = customLabel[type] || {};
 	var marker = new google.maps.Marker({
@@ -145,7 +216,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});*/
+});
 
 
 	getURL('places.json', function (data) {
@@ -180,7 +251,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});
+	});*/
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
@@ -234,10 +305,10 @@ function initMap() {
 	// Set origin point when user selects an address
 	const originMarker = new google.maps.Marker({map: map});
 	originMarker.setVisible(false);
-	let originLocation = map.getCenter();
+	var originLocation = map.getCenter();
 	console.log(originLocation);
 
-	autocomplete.addListener('place_changed', async () => {
+	autocomplete.addListener('place_changed', async => {
 		originMarker.setVisible(false);
 		originLocation = map.getCenter();
 		const place = autocomplete.getPlace();
@@ -256,146 +327,93 @@ function initMap() {
 		originMarker.setPosition(originLocation);
 		originMarker.setVisible(true);
 
-		const eventsList = await calculateDistances(map.data, originLocation);
-		showEventsList(map.data, eventsList);
+	/*	const eventsList = await calculateDistances(map.data, originLocation);
+		showEventsList(map.data, eventsList);*/
 
 		return;
 	});
+}
 
 
-	async function calculateDistances(data, origin) {
-		const places = [];
-		const destinations = [];
-
-		// Build parallel arrays for the place IDs and destinations
-		data.forEach((place) => {
-			const placeNum = place.getProperty('place_id');
-			const placeLoc = place.getGeometry().get();
-
-			places.push(placeNum);
-			destinations.push(placeLoc);
-		});
-
-		// Retrieve the distances of each place from the origin
-		// The returned list will be in the same order as the destinations list
-		const service = new google.maps.DistanceMatrixService();
-		const getDistanceMatrix =
-			(service, parameters) => new Promise((resolve, reject) => {
-				service.getDistanceMatrix(parameters, (response, status) => {
-					if (status != google.maps.DistanceMatrixStatus.OK) {
-						reject(response);
-					} else {
-						const distances = [];
-						const results = response.rows[0].elements;
-						for (let j = 0; j < results.length; j++) {
-							const element = results[j];
-							const distanceText = element.distance.text;
-							const distanceVal = element.distance.value;
-							const distanceObject = {
-								placeid: places[j],
-								distanceText: distanceText,
-								distanceVal: distanceVal,
-							};
-							distances.push(distanceObject);
-						}
-
-						resolve(distances);
-					}
-				});
-			});
-
-		const distancesList = await getDistanceMatrix(service, {
-			origins: [origin],
-			destinations: destinations,
-			travelMode: 'DRIVING',
-			unitSystem: google.maps.UnitSystem.METRIC,
-		});
-
-		distancesList.sort((first, second) => {
-			return first.distanceVal - second.distanceVal;
-		});
-
-		return distancesList;
-	}
-
-	// Displays list of calendar events
-	function showEventsList(data, places) {
-		if (places.length == 0) {
-			console.log('empty places');
-			return;
-		}
-
-		let panel = document.createElement('div');
-		// If the panel already exists, use it. Else, create it and add to the page.
-		if (document.getElementById('panel')) {
-			panel = document.getElementById('panel');
-			// If panel is already open, close it
-			if (panel.classList.contains('open')) {
-				panel.classList.remove('open');
-			}
-		} else {
-			panel.setAttribute('id', 'panel');
-			const body = document.body;
-			body.insertBefore(panel, body.childNodes[0]);
-		}
-
-
-		// Clear the previous details
-		while (panel.lastChild) {
-			panel.removeChild(panel.lastChild);
-		}
-
-		places.forEach((place) => {
-			// Add place details with text formatting
-			const name = document.createElement('p');
-			name.classList.add('place');
-			const currentPlace = data.getFeatureById(place.storeid);
-			name.textContent = currentPlace.getProperty('name');
-			panel.appendChild(name);
-			const distanceText = document.createElement('p');
-			distanceText.classList.add('distanceText');
-			distanceText.textContent = place.distanceText;
-			panel.appendChild(distanceText);
-		});
-
-		// Open the panel
-		panel.classList.add('open');
-
+// Displays list of calendar events
+function showEventsList(data, places) {
+	if (places.length == 0) {
+		console.log('empty places');
 		return;
 	}
 
-	function CenterHome(controlElement, map, center) {
-		var control = this;
-		control.center_ = center;
-		controlElement.style.clear = 'both';
+	let panel = document.createElement('div');
+	// If the panel already exists, use it. Else, create it and add to the page.
+	if (document.getElementById('panel')) {
+		panel = document.getElementById('panel');
+		// If panel is already open, close it
+		if (panel.classList.contains('open')) {
+			panel.classList.remove('open');
+		}
+	} else {
+		panel.setAttribute('id', 'panel');
+		const body = document.body;
+		body.insertBefore(panel, body.childNodes[0]);
+	}
 
-		var centerHome = document.createElement('div');
-		centerHome.id = 'centerHome';
-		centerHome.title = 'Home';
-		controlElement.appendChild(centerHome);
 
-		var homeText = document.createElement('div');
-		homeText.id = 'homeText';
-		homeText.innerHTML = 'Center Map at Home';
-		centerHome.appendChild(homeText);
+	// Clear the previous details
+	while (panel.lastChild) {
+		panel.removeChild(panel.lastChild);
+	}
 
-		var setCenter = document.createElement('div');
-		setCenter.id = 'setCenter';
-		setCenter.title = 'Click to change center';
-		controlElement.appendChild(setCenter);
+	places.forEach((place) => {
+		// Add place details with text formatting
+		const name = document.createElement('p');
+		name.classList.add('place');
+		const currentPlace = data.getFeatureById(place.storeid);
+		name.textContent = currentPlace.getProperty('name');
+		panel.appendChild(name);
+		const distanceText = document.createElement('p');
+		distanceText.classList.add('distanceText');
+		distanceText.textContent = place.distanceText;
+		panel.appendChild(distanceText);
+	});
 
-		var centerText = document.createElement('div');
-		centerText.id = 'centerText';
-		centerText.innerHTML = 'Set Center';
-		setCenter.appendChild(centerText);
+	// Open the panel
+	panel.classList.add('open');
 
-		centerHome.addEventListener('click', function() {
-			map.setCenter(center);
-		});
-
-		setCenter.addEventListener('click', function() {
-			var current = control.getCenter();
-			map.setCenter(current);
-		});
-	}	
+	return;
 }
+
+function CenterHome(controlElement, map, center) {
+	var control = this;
+	control.center_ = center;
+	controlElement.style.clear = 'both';
+
+	var centerHome = document.createElement('div');
+	centerHome.id = 'centerHome';
+	centerHome.title = 'Home';
+	controlElement.appendChild(centerHome);
+
+	var homeText = document.createElement('div');
+	homeText.id = 'homeText';
+	homeText.innerHTML = 'Center Map at Home';
+	centerHome.appendChild(homeText);
+
+	var setCenter = document.createElement('div');
+	setCenter.id = 'setCenter';
+	setCenter.title = 'Click to change center';
+	controlElement.appendChild(setCenter);
+
+	var centerText = document.createElement('div');
+	centerText.id = 'centerText';
+	centerText.innerHTML = 'Set Center';
+	setCenter.appendChild(centerText);
+
+	centerHome.addEventListener('click', function() {
+		map.setCenter(center);
+	});
+
+	setCenter.addEventListener('click', function() {
+		var current = control.getCenter();
+		map.setCenter(current);
+	});
+}	
+
+app.listen(8080);
