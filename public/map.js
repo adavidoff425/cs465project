@@ -119,7 +119,7 @@ function initMap() {
 		return {	
 			icon: {
 				url: img,
-				scaledSize: new google.maps.Size(64, 64),
+				scaledSize: new google.maps.Size(48, 48),
 			}
 		};
 	});
@@ -192,9 +192,7 @@ function initMap() {
 		const date = event.feature.getProperty('date');
 		const time = event.feature.getProperty('time');
 		const position = event.feature.getGeometry().get();
-		console.log(position);
 		const content = `
-			<img style="float:left; width:200px; margin-top:30px" src="img/logo_${category}.png">
 			<div style="margin-left:220px; margin-bottom:20px;">
 			<h2>${name}</h2><p>${description}</p>
 			<p>${date}<br/><b>Time: </b> ${time}</p>
@@ -230,6 +228,7 @@ function initMap() {
 	container.appendChild(input);
 	card.appendChild(titleBar);
 	card.appendChild(container);
+	CenterHome(card, map, map.getCenter());
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
 	const autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -265,12 +264,7 @@ function initMap() {
 
 		return;
 	});
-}
 
-function placeMarker(placeLocation) {
-	var marker = new google.maps.Data.Feature({
-		geometry: placeLocation
-	});
 }
 
 async function calculateDistances(data, origin) {
@@ -331,7 +325,7 @@ async function calculateDistances(data, origin) {
 // Displays list of calendar events
 function showEventsList(data, places) {
 	if (places.length == 0) {
-		console.log('empty places');
+		console.log('no calendar events to display');
 		return;
 	}
 
@@ -359,7 +353,7 @@ function showEventsList(data, places) {
 		// Add place details with text formatting
 		const name = document.createElement('p');
 		name.classList.add('place');
-		const currentPlace = data.getFeatureById(place.storeid);
+		const currentPlace = data.getFeatureById(place.placeid);
 		name.textContent = currentPlace.getProperty('name');
 		panel.appendChild(name);
 		const distanceText = document.createElement('p');
@@ -379,22 +373,22 @@ function CenterHome(controlElement, map, center) {
 	control.center_ = center;
 	controlElement.style.clear = 'both';
 
-	var centerHome = document.createElement('div');
+	const centerHome = document.createElement('button');
 	centerHome.id = 'centerHome';
 	centerHome.title = 'Home';
 	controlElement.appendChild(centerHome);
 
-	var homeText = document.createElement('div');
+	const homeText = document.createElement('div');
 	homeText.id = 'homeText';
 	homeText.innerHTML = 'Center Map at Home';
 	centerHome.appendChild(homeText);
 
-	var setCenter = document.createElement('div');
+	const setCenter = document.createElement('button');
 	setCenter.id = 'setCenter';
 	setCenter.title = 'Click to change center';
 	controlElement.appendChild(setCenter);
 
-	var centerText = document.createElement('div');
+	const centerText = document.createElement('div');
 	centerText.id = 'centerText';
 	centerText.innerHTML = 'Set Center';
 	setCenter.appendChild(centerText);
@@ -404,22 +398,24 @@ function CenterHome(controlElement, map, center) {
 	});
 
 	setCenter.addEventListener('click', function() {
-		var current = control.getCenter();
+		var current = control.center_;
 		map.setCenter(current);
 	});
+
+	return;
 }
 
-/*google.maps.Map.prototype.getGeoJson = function(callback) {
+google.maps.Map.prototype.getGeoJson = function(callback) {
 	var geojson = {"type": "FeatureCollection", "features": []},
 		func = function(place) {
 			place = (place.get)?place.get():place;
 			return([place.lng(), place.lat()]);
 		};
 	this.data.forEach(function(marker) {
-		var _feature = {type: 'Feature', properties: {}}
-		var _id = marker.getId(),
-		var _geometry = marker.getGeometry(),
-		var _type = _geometry.getType(),
+		var _feature = {type: 'Feature', properties: {}};
+		var _id = marker.getId();
+		var _geometry = marker.getGeometry();
+		var _type = _geometry.getType();
 		var _latlng = func(_geometry);
 		_feature.geometry = {type: _type, coordinates: _latlng};
 		_feature.id = _id;
@@ -427,4 +423,4 @@ function CenterHome(controlElement, map, center) {
 	});
 	callback(geojson);
 	return geojson;
-}*/
+}
