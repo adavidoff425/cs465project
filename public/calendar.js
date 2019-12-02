@@ -20,7 +20,8 @@ let months = [
   "December"
 ];
 
-let monthAndYear = document.getElementById("monthAndYear");
+let monthAndYear = document.getElementById("month-and-year");
+let dailyViewDate = document.getElementById("daily-view-date");
 show(currentMonth, currentYear);
 
 //go to next month
@@ -75,8 +76,16 @@ function show(month, year) {
   // make sure everything is empty
   body.innerHTML = "";
 
-  //set the heading
+  //set the heading of calendar
   monthAndYear.innerHTML = months[month] + " " + year;
+
+  //set the heading of the daily view
+  dailyViewDate.innerHTML =
+    dateSelected.getDate() +
+    " " +
+    months[dateSelected.getMonth()] +
+    " " +
+    dateSelected.getFullYear();
 
   yearSelected.value = year;
   monthSelected.value = month;
@@ -107,6 +116,7 @@ function show(month, year) {
         cell.appendChild(cellText);
         row.appendChild(cell);
       } else {
+        //actual date
         let cell = document.createElement("div");
         cell.id = date;
         cell.onclick = function changeDateSelected() {
@@ -118,7 +128,36 @@ function show(month, year) {
 
         cell.classList.add("calendar-col");
         cell.classList.add("date");
+
         let cellText = document.createTextNode(date);
+
+        //split up the date cell
+        let numberCell = document.createElement("div");
+        numberCell.id = date;
+        numberCell.classList.add("calendar-cell-date");
+        numberCell.onclick = function changeDateSelected() {
+          dateSelected.setDate(event.srcElement.id);
+          dateSelected.setMonth(monthSelected.value);
+          dateSelected.setFullYear(yearSelected.value);
+          show(currentMonth, currentYear);
+        };
+        let iconCell = document.createElement("div");
+        iconCell.id = date;
+        iconCell.classList.add("calendar-cell-icon");
+        iconCell.onclick = function changeDateSelected() {
+          dateSelected.setDate(event.srcElement.id);
+          dateSelected.setMonth(monthSelected.value);
+          dateSelected.setFullYear(yearSelected.value);
+          show(currentMonth, currentYear);
+        };
+        numberCell.appendChild(cellText);
+        cell.appendChild(iconCell);
+        cell.appendChild(numberCell);
+
+        let icon = document.createElement("div");
+        icon.classList.add("calendar-date-icon");
+        iconCell.appendChild(icon);
+
         if (
           date === dateSelected.getDate() &&
           year === dateSelected.getFullYear() &&
@@ -126,7 +165,7 @@ function show(month, year) {
         ) {
           cell.classList.add("active");
         } // color today's date
-        cell.appendChild(cellText);
+
         row.appendChild(cell);
         date++;
         rowNull = false;
