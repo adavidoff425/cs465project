@@ -226,7 +226,7 @@ button[class="movement_buttons"] {
 .daily-view-hourly {
   display: grid;
   grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(24, 80px);
+  grid-template-rows: repeat(48, 40px);
 }
 
 .daily-view-hour {
@@ -251,10 +251,12 @@ button[class="movement_buttons"] {
   border-top: solid 1px lightgray;
 }
 
-.daily-view-hour {
-  display: grid;
-  grid-template-rows: 40px 40px;
-  grid-template-columns: auto;
+.daily-view-hour.first {
+  border-bottom: dashed 1px lightgray;
+}
+
+.daily-view-hour.second {
+  border-bottom: solid 1px lightgray;
 }
 
 .daily-view-hourly-1 {
@@ -265,98 +267,195 @@ button[class="movement_buttons"] {
   border-bottom: solid 1px lightgray;
 }
 
-.daily-view-hour[id="0"] {
+.daily-view-hour[id="0-1"] {
   grid-area: 1 / 1 / 2 / 5;
+  border-top: solid 1px lightgray;
 }
 
-.daily-view-hour[id="1"] {
+.daily-view-hour[id="0-2"] {
   grid-area: 2 / 1 / 3 / 5;
 }
 
-.daily-view-hour[id="2"] {
+.daily-view-hour[id="1-1"] {
   grid-area: 3 / 1 / 4 / 5;
 }
 
-.daily-view-hour[id="3"] {
+.daily-view-hour[id="1-2"] {
   grid-area: 4 / 1 / 5 / 5;
 }
 
-.daily-view-hour[id="4"] {
+.daily-view-hour[id="2-1"] {
   grid-area: 5 / 1 / 6 / 5;
 }
 
-.daily-view-hour[id="5"] {
+.daily-view-hour[id="2-2"] {
   grid-area: 6 / 1 / 7 / 5;
 }
 
-.daily-view-hour[id="6"] {
+.daily-view-hour[id="3-1"] {
   grid-area: 7 / 1 / 8 / 5;
 }
 
-.daily-view-hour[id="7"] {
+.daily-view-hour[id="3-2"] {
   grid-area: 8 / 1 / 9 / 5;
 }
 
-.daily-view-hour[id="8"] {
+.daily-view-hour[id="4-1"] {
   grid-area: 9 / 1 / 10 / 5;
 }
 
-.daily-view-hour[id="9"] {
+.daily-view-hour[id="4-2"] {
   grid-area: 10 / 1 / 11 / 5;
 }
 
-.daily-view-hour[id="10"] {
+.daily-view-hour[id="5-1"] {
   grid-area: 11 / 1 / 12 / 5;
 }
 
-.daily-view-hour[id="11"] {
+.daily-view-hour[id="5-2"] {
   grid-area: 12 / 1 / 13 / 5;
 }
 
-.daily-view-hour[id="12"] {
+.daily-view-hour[id="6-1"] {
   grid-area: 13 / 1 / 14 / 5;
 }
 
-.daily-view-hour[id="13"] {
+.daily-view-hour[id="6-2"] {
   grid-area: 14 / 1 / 15 / 5;
 }
 
-.daily-view-hour[id="14"] {
+.daily-view-hour[id="7-1"] {
   grid-area: 15 / 1 / 16 / 5;
 }
 
-.daily-view-hour[id="15"] {
+.daily-view-hour[id="7-2"] {
   grid-area: 16 / 1 / 17 / 5;
 }
 
-.daily-view-hour[id="16"] {
+.daily-view-hour[id="8-1"] {
   grid-area: 17 / 1 / 18 / 5;
 }
 
-.daily-view-hour[id="17"] {
+.daily-view-hour[id="8-2"] {
   grid-area: 18 / 1 / 19 / 5;
 }
 
-.daily-view-hour[id="18"] {
+.daily-view-hour[id="9-1"] {
   grid-area: 19 / 1 / 20 / 5;
 }
 
-.daily-view-hour[id="19"] {
+.daily-view-hour[id="9-2"] {
   grid-area: 20 / 1 / 21 / 5;
 }
 
-.daily-view-hour[id="20"] {
+.daily-view-hour[id="10-1"] {
   grid-area: 21 / 1 / 22 / 5;
 }
 
-.daily-view-hour[id="21"] {
+.daily-view-hour[id="10-2"] {
   grid-area: 22 / 1 / 23 / 5;
 }
 
-.daily-view-hour[id="22"] {
+.daily-view-hour[id="11-1"] {
   grid-area: 23 / 1 / 24 / 5;
 }
 
-.daily-view-hour[id="23"] {
+.daily-view-hour[id="11-2"] {
   grid-area: 24 / 1 / 25 / 5;
+}
+
+.daily-view-hour[id="12-1"] {
+  grid-area: 25 / 1 / 26 / 5;
+}
+
+.daily-view-hour[id="12-2"] {
+  grid-area: 26 / 1 / 27 / 5;
+}
+
+.daily-view-hour[id="13-1"] {
+  grid-area: 27 / 1 / 28 / 5;
+}
+
+.daily-view-hour[id="13-2"] {
+  grid-area: 28 / 1 / 29 / 5;
+}
+
+.daily-view-hour[id="14-1"] {
+  grid-area: 29 / 1 / 30 / 5;
+}
+
+.daily-view-hour[id="14-2"] {
+  grid-area: 30 / 1 / 31 / 5;
+}
+
+.daily-view-hour[id="15-1"] {
+  grid-area: 31 / 1 / 32 / 5;
+}
+
+.daily-view-hour[id="15-2"] {
+  grid-area: 32 / 1 / 33 / 5;
+}
+
+.daily-view-hour[id="16-1"] {
+  grid-area: 33 / 1 / 34 / 5;
+}
+
+.daily-view-hour[id="16-2"] {
+  grid-area: 34 / 1 / 35 / 5;
+}
+
+.daily-view-hour[id="17-2"] {
+  grid-area: 35 / 1 / 36 / 5;
+}
+
+.daily-view-hour[id="17-1"] {
+  grid-area: 36 / 1 / 37 / 5;
+}
+
+.daily-view-hour[id="18-1"] {
+  grid-area: 37 / 1 / 38 / 5;
+}
+
+.daily-view-hour[id="18-2"] {
+  grid-area: 38 / 1 / 39 / 5;
+}
+
+.daily-view-hour[id="19-1"] {
+  grid-area: 39 / 1 / 40 / 5;
+}
+
+.daily-view-hour[id="19-2"] {
+  grid-area: 40 / 1 / 41 / 5;
+}
+
+.daily-view-hour[id="20-1"] {
+  grid-area: 41 / 1 / 42 / 5;
+}
+
+.daily-view-hour[id="20-2"] {
+  grid-area: 42 / 1 / 43 / 5;
+}
+
+.daily-view-hour[id="21-1"] {
+  grid-area: 43 / 1 / 44 / 5;
+}
+
+.daily-view-hour[id="21-2"] {
+  grid-area: 44 / 1 / 45 / 5;
+}
+
+.daily-view-hour[id="22-1"] {
+  grid-area: 45 / 1 / 46 / 5;
+}
+
+.daily-view-hour[id="22-2"] {
+  grid-area: 46 / 1 / 47 / 5;
+}
+
+.daily-view-hour[id="23-1"] {
+  grid-area: 47 / 1 / 48 / 5;
+}
+
+.daily-view-hour[id="23-2"] {
+  grid-area: 48 / 1 / 49 / 5;
 }
