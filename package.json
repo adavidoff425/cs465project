@@ -4,12 +4,15 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "r_nodemon": "nodemon server.js"
   },
   "dependencies": {
     "asyncawait": "^3.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mysql": "^2.17.1",
+    "nodemon": "^2.0.1"
   }
 }
