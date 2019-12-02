@@ -405,6 +405,7 @@ function CenterHome(controlElement, map, center) {
 	return;
 }
 
+// Function to return geojson object for marker on map, not in use yet
 google.maps.Map.prototype.getGeoJson = function(callback) {
 	var geojson = {"type": "FeatureCollection", "features": []},
 		func = function(place) {
