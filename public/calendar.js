@@ -4,6 +4,7 @@ let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let yearSelected = document.getElementById("year");
 let monthSelected = document.getElementById("month");
+let body = document.getElementById("calendar-body"); // moved body to global variable
 
 let months = [
   "January",
@@ -65,12 +66,10 @@ function jump() {
   show(currentMonth, currentYear);
 }
 
-function show(month, year) {
+export function show(month, year) {
   //console.log(month + " " + year);
   let firstDay = new Date(year, month).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
-  let body = document.getElementById("calendar-body");
 
   // make sure everything is empty
   body.innerHTML = "";
@@ -137,3 +136,11 @@ function show(month, year) {
 
   //create the daily view
 }
+
+// getter to use calendar body in other scripts
+export function getBody() {
+  return body;
+} 
+
+exports.calendar = getBody;
+
