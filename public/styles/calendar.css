@@ -1,11 +1,11 @@
 .calendar-view {
   display: grid;
-  grid-template-rows: 420px;
+  grid-template-rows: 80%;
   grid-template-columns: 50% 50%;
 }
 
 .daily-view-background {
-  width: 600px;
+  width: 80%;
   background: #d1dfeb;
   border: solid 1px rgb(107, 107, 107);
   border-radius: 15px;
@@ -14,13 +14,13 @@
 .daily-view-wrapper {
   padding-top: 5px;
   padding-bottom: 5px;
-  width: 420px;
+  width: 80%;
   margin: 10px auto 10px auto;
 }
 
 .calendar-background {
   background-color: #d1dfeb;
-  width: 600px;
+  width: 80%;
   height: auto;
   border-radius: 15px;
   border: solid 1px rgb(107, 107, 107);
@@ -29,7 +29,7 @@
 .calendar-wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 420px;
+  width: 80%;
   background-color: #d1dfeb;
   font-family: Georgia, serif;
 }
@@ -65,8 +65,8 @@ h2 {
 .calendar-header,
 .calendar-row {
   display: grid;
-  grid-template-rows: 40px;
-  grid-template-columns: repeat(7, 60px);
+  grid-template-rows: 15%;
+  grid-template-columns: repeat(7, 15%);
 }
 
 .calendar-col {
@@ -150,7 +150,7 @@ button[class="movement_buttons"] {
   color: white;
   margin-right: auto;
   margin-left: auto;
-  width: 120px;
+  width: 85%;
   font-weight: 600;
 }
 
@@ -189,16 +189,16 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-header {
-  display: grid;
-  grid-template-rows: 50px;
-  grid-template-columns: 50% 50%;
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .daily-view-header h2 {
+  height: auto;
   font-size: 24px;
   text-align: right;
-  margin-right: 10px;
-  align-self: center;
+  margin: 5px 5px 5px auto;
 }
 
 .daily-view-header {
@@ -219,19 +219,18 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-labels {
-  grid-template-rows: repeat(24, 50px);
   background: #174668;
 }
 
 .daily-view-hourly {
   display: grid;
   grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(48, 25px);
+  grid-template-rows: repeat(48, 30px);
 }
 
 .daily-view-hour {
   display: grid;
-  grid-template-rows: 40px 40px;
+  grid-template-rows: 10% 10%;
   border-right: solid 1px lightgray;
   border-left: solid 1px lightgray;
 }
@@ -244,7 +243,8 @@ button[class="movement_buttons"] {
   background-color: #174668;
   color: white;
   text-align: center;
-  height: 50px;
+  font-size: 12px;
+  height: 60px;
 }
 
 .daily-view-hour[id="0"] .daily-view-hourly-1 {
