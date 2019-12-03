@@ -1,11 +1,12 @@
 .calendar-view {
   display: grid;
-  grid-template-rows: 80%;
+  grid-template-rows: 600px;
   grid-template-columns: 50% 50%;
 }
 
 .daily-view-background {
-  width: 80%;
+  width: 600px;
+  height: 555px;
   background: #d1dfeb;
   border: solid 1px rgb(107, 107, 107);
   border-radius: 15px;
@@ -14,14 +15,14 @@
 .daily-view-wrapper {
   padding-top: 5px;
   padding-bottom: 5px;
-  width: 80%;
+  width: 525px;
   margin: 10px auto 10px auto;
 }
 
 .calendar-background {
   background-color: #d1dfeb;
-  width: 80%;
-  height: auto;
+  width: 600px;
+  height: 555px;
   border-radius: 15px;
   border: solid 1px rgb(107, 107, 107);
 }
@@ -29,14 +30,9 @@
 .calendar-wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 525px;
   background-color: #d1dfeb;
   font-family: Georgia, serif;
-}
-
-#calendar-body td,
-#dayHeaders div {
-  width: 100px;
 }
 
 .heading-wrapper h2 {
@@ -65,8 +61,8 @@ h2 {
 .calendar-header,
 .calendar-row {
   display: grid;
-  grid-template-rows: 15%;
-  grid-template-columns: repeat(7, 15%);
+  grid-template-rows: 60px;
+  grid-template-columns: repeat(7, 75px);
 }
 
 .calendar-col {
@@ -207,7 +203,7 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-grid-wrapper {
-  height: 340px;
+  height: 460px;
   overflow-y: auto;
 }
 
