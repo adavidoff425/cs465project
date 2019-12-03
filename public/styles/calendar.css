@@ -65,8 +65,8 @@ h2 {
 .calendar-header,
 .calendar-row {
   display: grid;
-  grid-template-rows: 75px;
-  grid-template-columns: repeat(7, 100px);
+  grid-template-rows: 40px;
+  grid-template-columns: repeat(7, 60px);
 }
 
 .calendar-col {
@@ -78,7 +78,7 @@ h2 {
 
 .calendar-col.date {
   display: grid;
-  grid-template-rows: 65px;
+  grid-template-rows: 50px;
   grid-template-columns: 50% 50%;
 }
 

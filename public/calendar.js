@@ -4,10 +4,9 @@ let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 let yearSelected = document.getElementById("year");
 let monthSelected = document.getElementById("month");
-<<<<<<< HEAD
-=======
 let body = document.getElementById("calendar-body"); // moved body to global variable
->>>>>>> origin
+
+console.log("made it");
 
 let months = [
   "January",
@@ -24,12 +23,8 @@ let months = [
   "December"
 ];
 
-<<<<<<< HEAD
 let monthAndYear = document.getElementById("month-and-year");
 let dailyViewDate = document.getElementById("daily-view-date");
-=======
-let monthAndYear = document.getElementById("monthAndYear");
->>>>>>> origin
 show(currentMonth, currentYear);
 
 //go to next month
@@ -74,16 +69,11 @@ function jump() {
   show(currentMonth, currentYear);
 }
 
-<<<<<<< HEAD
 function show(month, year) {
-=======
-export function show(month, year) {
->>>>>>> origin
   //console.log(month + " " + year);
   let firstDay = new Date(year, month).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-<<<<<<< HEAD
   let body = document.getElementById("calendar-body");
 
   // make sure everything is empty
@@ -100,14 +90,6 @@ export function show(month, year) {
     " " +
     dateSelected.getFullYear();
 
-=======
-  // make sure everything is empty
-  body.innerHTML = "";
-
-  //set the heading
-  monthAndYear.innerHTML = months[month] + " " + year;
-
->>>>>>> origin
   yearSelected.value = year;
   monthSelected.value = month;
 
@@ -137,10 +119,7 @@ export function show(month, year) {
         cell.appendChild(cellText);
         row.appendChild(cell);
       } else {
-<<<<<<< HEAD
         //actual date
-=======
->>>>>>> origin
         let cell = document.createElement("div");
         cell.id = date;
         cell.onclick = function changeDateSelected() {
@@ -152,7 +131,6 @@ export function show(month, year) {
 
         cell.classList.add("calendar-col");
         cell.classList.add("date");
-<<<<<<< HEAD
 
         let cellText = document.createTextNode(date);
 
@@ -183,9 +161,6 @@ export function show(month, year) {
         icon.classList.add("calendar-date-icon");
         iconCell.appendChild(icon);
 
-=======
-        let cellText = document.createTextNode(date);
->>>>>>> origin
         if (
           date === dateSelected.getDate() &&
           year === dateSelected.getFullYear() &&
@@ -193,11 +168,6 @@ export function show(month, year) {
         ) {
           cell.classList.add("active");
         } // color today's date
-<<<<<<< HEAD
-
-=======
-        cell.appendChild(cellText);
->>>>>>> origin
         row.appendChild(cell);
         date++;
         rowNull = false;
@@ -208,14 +178,11 @@ export function show(month, year) {
 
   //create the daily view
 }
-<<<<<<< HEAD
-=======
 
 // getter to use calendar body in other scripts
-export function getBody() {
+function getBody() {
   return body;
 } 
 
 exports.calendar = getBody;
 
->>>>>>> origin
