@@ -1,36 +1,45 @@
-.calendar-view {
+.layout {
   display: grid;
-  grid-template-rows: 600px;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 10% auto 10%;
+}
+
+.calendar-view {
+  display: flex;
+  width: auto;
 }
 
 .daily-view-background {
-  width: 600px;
+  width: 60%;
+  min-width: 400px;
   height: 555px;
   background: #d1dfeb;
   border: solid 1px rgb(107, 107, 107);
   border-radius: 15px;
+  margin-left: auto;
+  
 }
 
 .daily-view-wrapper {
   padding-top: 5px;
   padding-bottom: 5px;
-  width: 525px;
+  width: 90%;
   margin: 10px auto 10px auto;
 }
 
 .calendar-background {
   background-color: #d1dfeb;
-  width: 600px;
+  width: 35%;
+  min-width: 350px;
   height: 555px;
   border-radius: 15px;
   border: solid 1px rgb(107, 107, 107);
+  margin-right: 20px;
 }
 
 .calendar-wrapper {
   margin-left: auto;
   margin-right: auto;
-  width: 525px;
+  width: 90%;
   background-color: #d1dfeb;
   font-family: Georgia, serif;
 }
@@ -58,11 +67,16 @@ h2 {
   font-weight: 600;
 }
 
+.calendar-body,
+.calendar-header {
+  margin: 0 auto;
+}
+
 .calendar-header,
 .calendar-row {
   display: grid;
   grid-template-rows: 60px;
-  grid-template-columns: repeat(7, 75px);
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .calendar-col {
@@ -220,7 +234,7 @@ button[class="movement_buttons"] {
 
 .daily-view-hourly {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(48, 30px);
 }
 
@@ -264,196 +278,196 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-hour[id="0-1"] {
-  grid-area: 1 / 1 / 2 / 5;
+  grid-area: 1 / 1 / 2 / 4;
   border-top: solid 1px lightgray;
 }
 
 .daily-view-hour[id="0-2"] {
-  grid-area: 2 / 1 / 3 / 5;
+  grid-area: 2 / 1 / 3 / 4;
 }
 
 .daily-view-hour[id="1-1"] {
-  grid-area: 3 / 1 / 4 / 5;
+  grid-area: 3 / 1 / 4 / 4;
 }
 
 .daily-view-hour[id="1-2"] {
-  grid-area: 4 / 1 / 5 / 5;
+  grid-area: 4 / 1 / 5 / 4;
 }
 
 .daily-view-hour[id="2-1"] {
-  grid-area: 5 / 1 / 6 / 5;
+  grid-area: 5 / 1 / 6 / 4;
 }
 
 .daily-view-hour[id="2-2"] {
-  grid-area: 6 / 1 / 7 / 5;
+  grid-area: 6 / 1 / 7 / 4;
 }
 
 .daily-view-hour[id="3-1"] {
-  grid-area: 7 / 1 / 8 / 5;
+  grid-area: 7 / 1 / 8 / 4;
 }
 
 .daily-view-hour[id="3-2"] {
-  grid-area: 8 / 1 / 9 / 5;
+  grid-area: 8 / 1 / 9 / 4;
 }
 
 .daily-view-hour[id="4-1"] {
-  grid-area: 9 / 1 / 10 / 5;
+  grid-area: 9 / 1 / 10 / 4;
 }
 
 .daily-view-hour[id="4-2"] {
-  grid-area: 10 / 1 / 11 / 5;
+  grid-area: 10 / 1 / 11 / 4;
 }
 
 .daily-view-hour[id="5-1"] {
-  grid-area: 11 / 1 / 12 / 5;
+  grid-area: 11 / 1 / 12 / 4;
 }
 
 .daily-view-hour[id="5-2"] {
-  grid-area: 12 / 1 / 13 / 5;
+  grid-area: 12 / 1 / 13 / 4;
 }
 
 .daily-view-hour[id="6-1"] {
-  grid-area: 13 / 1 / 14 / 5;
+  grid-area: 13 / 1 / 14 / 4;
 }
 
 .daily-view-hour[id="6-2"] {
-  grid-area: 14 / 1 / 15 / 5;
+  grid-area: 14 / 1 / 15 / 4;
 }
 
 .daily-view-hour[id="7-1"] {
-  grid-area: 15 / 1 / 16 / 5;
+  grid-area: 15 / 1 / 16 / 4;
 }
 
 .daily-view-hour[id="7-2"] {
-  grid-area: 16 / 1 / 17 / 5;
+  grid-area: 16 / 1 / 17 / 4;
 }
 
 .daily-view-hour[id="8-1"] {
-  grid-area: 17 / 1 / 18 / 5;
+  grid-area: 17 / 1 / 18 / 4;
 }
 
 .daily-view-hour[id="8-2"] {
-  grid-area: 18 / 1 / 19 / 5;
+  grid-area: 18 / 1 / 19 / 4;
 }
 
 .daily-view-hour[id="9-1"] {
-  grid-area: 19 / 1 / 20 / 5;
+  grid-area: 19 / 1 / 20 / 4;
 }
 
 .daily-view-hour[id="9-2"] {
-  grid-area: 20 / 1 / 21 / 5;
+  grid-area: 20 / 1 / 21 / 4;
 }
 
 .daily-view-hour[id="10-1"] {
-  grid-area: 21 / 1 / 22 / 5;
+  grid-area: 21 / 1 / 22 / 4;
 }
 
 .daily-view-hour[id="10-2"] {
-  grid-area: 22 / 1 / 23 / 5;
+  grid-area: 22 / 1 / 23 / 4;
 }
 
 .daily-view-hour[id="11-1"] {
-  grid-area: 23 / 1 / 24 / 5;
+  grid-area: 23 / 1 / 24 / 4;
 }
 
 .daily-view-hour[id="11-2"] {
-  grid-area: 24 / 1 / 25 / 5;
+  grid-area: 24 / 1 / 25 / 4;
 }
 
 .daily-view-hour[id="12-1"] {
-  grid-area: 25 / 1 / 26 / 5;
+  grid-area: 25 / 1 / 26 / 4;
 }
 
 .daily-view-hour[id="12-2"] {
-  grid-area: 26 / 1 / 27 / 5;
+  grid-area: 26 / 1 / 27 / 4;
 }
 
 .daily-view-hour[id="13-1"] {
-  grid-area: 27 / 1 / 28 / 5;
+  grid-area: 27 / 1 / 28 / 4;
 }
 
 .daily-view-hour[id="13-2"] {
-  grid-area: 28 / 1 / 29 / 5;
+  grid-area: 28 / 1 / 29 / 4;
 }
 
 .daily-view-hour[id="14-1"] {
-  grid-area: 29 / 1 / 30 / 5;
+  grid-area: 29 / 1 / 30 / 4;
 }
 
 .daily-view-hour[id="14-2"] {
-  grid-area: 30 / 1 / 31 / 5;
+  grid-area: 30 / 1 / 31 / 4;
 }
 
 .daily-view-hour[id="15-1"] {
-  grid-area: 31 / 1 / 32 / 5;
+  grid-area: 31 / 1 / 32 / 4;
 }
 
 .daily-view-hour[id="15-2"] {
-  grid-area: 32 / 1 / 33 / 5;
+  grid-area: 32 / 1 / 33 / 4;
 }
 
 .daily-view-hour[id="16-1"] {
-  grid-area: 33 / 1 / 34 / 5;
+  grid-area: 33 / 1 / 34 / 4;
 }
 
 .daily-view-hour[id="16-2"] {
-  grid-area: 34 / 1 / 35 / 5;
-}
-
-.daily-view-hour[id="17-2"] {
-  grid-area: 35 / 1 / 36 / 5;
+  grid-area: 34 / 1 / 35 / 4;
 }
 
 .daily-view-hour[id="17-1"] {
-  grid-area: 36 / 1 / 37 / 5;
+  grid-area: 35 / 1 / 36 / 4;
+}
+
+.daily-view-hour[id="17-2"] {
+  grid-area: 36 / 1 / 37 / 4;
 }
 
 .daily-view-hour[id="18-1"] {
-  grid-area: 37 / 1 / 38 / 5;
+  grid-area: 37 / 1 / 38 / 4;
 }
 
 .daily-view-hour[id="18-2"] {
-  grid-area: 38 / 1 / 39 / 5;
+  grid-area: 38 / 1 / 39 / 4;
 }
 
 .daily-view-hour[id="19-1"] {
-  grid-area: 39 / 1 / 40 / 5;
+  grid-area: 39 / 1 / 40 / 4;
 }
 
 .daily-view-hour[id="19-2"] {
-  grid-area: 40 / 1 / 41 / 5;
+  grid-area: 40 / 1 / 41 / 4;
 }
 
 .daily-view-hour[id="20-1"] {
-  grid-area: 41 / 1 / 42 / 5;
+  grid-area: 41 / 1 / 42 / 4;
 }
 
 .daily-view-hour[id="20-2"] {
-  grid-area: 42 / 1 / 43 / 5;
+  grid-area: 42 / 1 / 43 / 4;
 }
 
 .daily-view-hour[id="21-1"] {
-  grid-area: 43 / 1 / 44 / 5;
+  grid-area: 43 / 1 / 44 / 4;
 }
 
 .daily-view-hour[id="21-2"] {
-  grid-area: 44 / 1 / 45 / 5;
+  grid-area: 44 / 1 / 45 / 4;
 }
 
 .daily-view-hour[id="22-1"] {
-  grid-area: 45 / 1 / 46 / 5;
+  grid-area: 45 / 1 / 46 / 4;
 }
 
 .daily-view-hour[id="22-2"] {
-  grid-area: 46 / 1 / 47 / 5;
+  grid-area: 46 / 1 / 47 / 4;
 }
 
 .daily-view-hour[id="23-1"] {
-  grid-area: 47 / 1 / 48 / 5;
+  grid-area: 47 / 1 / 48 / 4;
 }
 
 .daily-view-hour[id="23-2"] {
-  grid-area: 48 / 1 / 49 / 5;
+  grid-area: 48 / 1 / 49 / 4;
 }
 
 .event {
