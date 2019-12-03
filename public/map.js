@@ -1,3 +1,5 @@
+var calendar = require('./calendar.js');
+
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -99,7 +101,7 @@ function getURL(url, callback) {
 }
 
 function initMap() {
-	//	const username = document.getElementById('user').value;
+	const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 11,
 		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland
@@ -109,7 +111,7 @@ function initMap() {
 		},
 	});
 
-	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
+	map.data.loadGeoJson('places.json', {idPropertyName: 'username'});
 
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
@@ -118,6 +120,7 @@ function initMap() {
 		console.log(geo);
 		return {	
 			icon: {
+        visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			}
@@ -325,7 +328,7 @@ async function calculateDistances(data, origin) {
 // Displays list of calendar events
 function showEventsList(data, places) {
 	if (places.length == 0) {
-		console.log('no calendar events to display');
+		window.alert('no calendar events to display');
 		return;
 	}
 
@@ -405,6 +408,7 @@ function CenterHome(controlElement, map, center) {
 	return;
 }
 
+// Function to return geojson object for marker on map, not in use yet
 google.maps.Map.prototype.getGeoJson = function(callback) {
 	var geojson = {"type": "FeatureCollection", "features": []},
 		func = function(place) {

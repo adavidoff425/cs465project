@@ -14,7 +14,8 @@
 			"description": "CS4/565",
 			"name": "Full Stack Web Development",
 			"date": "9/30/19-12/6/19",
-			"placeid": "01"
+			"placeid": "01",
+      "username": "alexdavidoff"
 		}
 	},
 	{
@@ -31,7 +32,8 @@
 			"description": "Where i live",
 			"name": "HOME",
 			"date": "",
-			"placeid": "02"
+			"placeid": "02",
+      "username": "alexdavidoff"
 		}
 	}
 		]

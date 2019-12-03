@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>View Calendar</title>
+<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="../styles/calendar.css" />
   </head>
   <body>
@@ -211,5 +212,122 @@
     </div>
 
     <script src="../calendar.js"></script>
+=======
+    <link ref="stylesheet" type="text/css" href="../styles/calendar.css" />
+  </head>
+  <body>
+    <div class="calendar-background">
+      <div class="calendar-wrapper">
+        <form class="date-form">
+          <div class="heading-wrapper">
+            <div class="month-wrapper">
+              <select
+                 class="date-dropdown"
+                 name="month"
+                 id="month"
+                 onchange="jump()"
+                 >
+                 <option value="" selected disabled hidden>Month</option>
+                 <option value="0">Jan</option>
+                 <option value="1">Feb</option>
+                 <option value="2">Mar</option>
+                 <option value="3">Apr</option>
+                 <option value="4">May</option>
+                 <option value="5">Jun</option>
+                 <option value="6">Jul</option>
+                 <option value="7">Aug</option>
+                 <option value="8">Sep</option>
+                 <option value="9">Oct</option>
+                 <option value="10">Nov</option>
+                 <option value="11">Dec</option>
+              </select>
+            </div>
+            <div class="year-wrapper">
+              <select
+                 class="date-dropdown"
+                 name="year"
+                 id="year"
+                 onchange="jump()"
+                 >
+                 <option value="" selected disabled hidden>Year</option>
+                 <option value="2019">2019</option>
+                 <option value="2020">2020</option>
+                 <option value="2021">2021</option>
+                 <option value="2022">2022</option>
+                 <option value="2023">2023</option>
+                 <option value="2024">2024</option>
+                 <option value="2025">2025</option>
+                 <option value="2026">2026</option>
+                 <option value="2027">2027</option>
+                 <option value="2028">2028</option>
+                 <option value="2029">2029</option>
+                 <option value="2030">2030</option>
+                 <option value="2031">2031</option>
+                 <option value="2032">2032</option>
+                 <option value="2033">2033</option>
+                 <option value="2034">2034</option>
+                 <option value="2035">2035</option>
+                 <option value="2036">2036</option>
+                 <option value="2037">2037</option>
+                 <option value="2038">2038</option>
+                 <option value="2039">2039</option>
+                 <option value="2040">2040</option>
+                 <option value="2031">2041</option>
+                 <option value="2032">2042</option>
+                 <option value="2033">2043</option>
+                 <option value="2034">2044</option>
+                 <option value="2035">2045</option>
+                 <option value="2036">2046</option>
+                 <option value="2037">2047</option>
+                 <option value="2038">2048</option>
+                 <option value="2039">2049</option>
+                 <option value="2040">2050</option>
+                 <option value="2031">2051</option>
+                 <option value="2032">2052</option>
+                 <option value="2033">2053</option>
+                 <option value="2034">2054</option>
+                 <option value="2035">2055</option>
+                 <option value="2036">2056</option>
+                 <option value="2037">2057</option>
+                 <option value="2038">2058</option>
+                 <option value="2039">2059</option>
+                 <option value="2040">2060</option>
+              </select>
+            </div>
+            <h2 class="calendar-current-date" id="monthAndYear"></h2>
+          </div>
+        </form>
+
+        <div class="calendar" id="calendar">
+          <div class="calendar-header">
+            <div id="Sun">Sun</div>
+            <div id="Mon">Mon</div>
+            <div id="Tues">Tue</div>
+            <div id="Wed">Wed</div>
+            <div id="Thu">Thu</div>
+            <div id="Fri">Fri</div>
+            <div id="Sat">Sat</div>
+          </div>
+
+          <div id="calendar-body"></div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="movement_buttons" id="previous" onclick="previous()">
+            Previous
+          </button>
+          <button class="movement_buttons" id="today" onclick="base()">
+            Selected Date
+          </button>
+          <button class="movement_buttons" id="next" onclick="next()">
+            Next
+          </button>
+        </div>
+        <br />
+      </div>
+    </div>
+    <script src="../calendar.js"></script>
+    <script src="../map.js"></script>
+>>>>>>> origin
   </body>
 </html>
