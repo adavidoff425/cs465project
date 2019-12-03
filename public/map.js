@@ -1,3 +1,4 @@
+const apiKey = process.env.APIKEY;
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -127,7 +128,6 @@ function initMap() {
 		};
 	});
 	
-	const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 	const infoWindow = new google.maps.InfoWindow();
 
 
@@ -408,23 +408,30 @@ function CenterHome(controlElement, map, center) {
 	return;
 }
 
+
 // Function to return geojson object for marker on map, not in use yet
-google.maps.Map.prototype.getGeoJson = function(callback) {
-	var geojson = {"type": "FeatureCollection", "features": []},
-		func = function(place) {
-			place = (place.get)?place.get():place;
-			return([place.lng(), place.lat()]);
-		};
-	this.data.forEach(function(marker) {
-		var _feature = {type: 'Feature', properties: {}};
-		var _id = marker.getId();
-		var _geometry = marker.getGeometry();
-		var _type = _geometry.getType();
-		var _latlng = func(_geometry);
-		_feature.geometry = {type: _type, coordinates: _latlng};
-		_feature.id = _id;
-		geojson.features.push(_feature);
-	});
-	callback(geojson);
-	return geojson;
+/*function toGeoJson(place) {
+  var geojson = {geometry: {}, "features": []},
+	var _feature = {type: 'Feature', properties: {}};
+	var _id = place.place_id;
+	var _geometry = place.getGeometry();
+	var _type = _geometry.getType();
+	var _latlng = _geometry.get();
+	geojson.geometry = {type: _type, coordinates: _latlng};
+	_feature.id = _id;
+	geojson.features.push(_feature);
+}*/
+
+function addrSearch(query) {
+  var service = new google.maps.places.PlacesService(map);  
+  var search = {
+    query: query,
+    fields: ['formatted_address'],
+  };
+
+  service.findPlaceFromQuery(search, function(result, status) {
+    if (status === google.maps.place.PlacesServiceStatus.OK) {
+      return result[0].toGeoJson();  
+    }
+  });
 }
