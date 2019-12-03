@@ -6,8 +6,6 @@ let yearSelected = document.getElementById("year");
 let monthSelected = document.getElementById("month");
 let body = document.getElementById("calendar-body"); // moved body to global variable
 
-console.log("made it");
-
 let months = [
   "January",
   "February",
@@ -68,6 +66,13 @@ function jump() {
   currentMonth = parseInt(monthSelected.value);
   show(currentMonth, currentYear);
 }
+
+var json =
+  '{ "type": "FeatureCollection", "features": [ { "geometry": { "type": "Point", "coordinates": "[-122.6810424, 45.509023]" }, "type": "Feature", "properties": { "category": "school", "time": "8am - 10am", "description": "CS4/565", "name": "Full Stack Web Development", "date": "9/30/19-12/6/19", "placeid": "01", "username": "alexdavidoff" } } ] }';
+var obj = JSON.parse(json);
+
+var features = obj.features[0];
+console.log(obj.length);
 
 function show(month, year) {
   //console.log(month + " " + year);
@@ -175,14 +180,9 @@ function show(month, year) {
     }
     body.appendChild(row); // appending each row into calendar body.
   }
-
-  //create the daily view
+  //show the events
+  showEvents();
 }
 
 // getter to use calendar body in other scripts
-function getBody() {
-  return body;
-} 
-
-exports.calendar = getBody;
-
+function showEvents() {}
