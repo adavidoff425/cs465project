@@ -1,11 +1,11 @@
 .calendar-view {
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: 420px;
   grid-template-columns: 50% 50%;
 }
 
 .daily-view-background {
-  width: 800px;
+  width: 600px;
   background: #d1dfeb;
   border: solid 1px rgb(107, 107, 107);
   border-radius: 15px;
@@ -14,23 +14,23 @@
 .daily-view-wrapper {
   padding-top: 5px;
   padding-bottom: 5px;
-  width: 700px;
+  width: 420px;
   margin: 10px auto 10px auto;
 }
 
 .calendar-background {
   background-color: #d1dfeb;
-  width: 800px;
+  width: 600px;
   height: auto;
   border-radius: 15px;
   border: solid 1px rgb(107, 107, 107);
 }
 
 .calendar-wrapper {
-  margin: 10px auto 10px auto;
-  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 420px;
   background-color: #d1dfeb;
-  margin-top: 10px;
   font-family: Georgia, serif;
 }
 
@@ -207,7 +207,7 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-grid-wrapper {
-  height: 600px;
+  height: 340px;
   overflow-y: auto;
 }
 
@@ -219,14 +219,14 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-labels {
-  grid-template-rows: repeat(24, 80px);
+  grid-template-rows: repeat(24, 50px);
   background: #174668;
 }
 
 .daily-view-hourly {
   display: grid;
   grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(48, 40px);
+  grid-template-rows: repeat(48, 25px);
 }
 
 .daily-view-hour {
@@ -244,7 +244,7 @@ button[class="movement_buttons"] {
   background-color: #174668;
   color: white;
   text-align: center;
-  height: 80px;
+  height: 50px;
 }
 
 .daily-view-hour[id="0"] .daily-view-hourly-1 {
