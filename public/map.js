@@ -1,5 +1,3 @@
-var calendar = require('./calendar.js');
-
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -101,26 +99,28 @@ function getURL(url, callback) {
 }
 
 function initMap() {
-	const username = document.getElementById('user').value; // or calendar.user???
+	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 11,
-		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland
+		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland 
 		styles: mapStyle,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.RIGHT_BOTTOM
 		},
 	});
 
-	map.data.loadGeoJson('places.json', {idPropertyName: 'username'});
+	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
 
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
 		var img = `./img/icon_${feature.getProperty('category')}.png`;
 		var geo = `${feature.getGeometry().get()}`;
 		console.log(geo);
+    if(`${feature.getProperty('category') == 'home'}`)
+      map.setCenter(`${feature.getGeometry().get()}`);
 		return {	
 			icon: {
-        visible: feature.getProperty('username') === username, /// set to true if username of place matches
+        //visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			}

@@ -184,5 +184,4 @@ function getBody() {
   return body;
 } 
 
-exports.calendar = getBody;
 
