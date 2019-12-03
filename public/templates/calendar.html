@@ -3,206 +3,226 @@
   <head>
     <title>View Calendar</title>
     <link rel="stylesheet" type="text/css" href="../styles/calendar.css" />
+    <link rel="stylesheet" type="text/css" href="../styles/template.css">
   </head>
   <body>
-    <div class="layout">
-      <div class="left-sidebar"></div>
-      <div class="calendar-view">
-        <div class="calendar-background">
-          <div class="calendar-wrapper">
-            <form class="date-form">
-              <div class="heading-wrapper">
-                <div class="month-wrapper">
-                  <select
-                    class="date-dropdown"
-                    name="month"
-                    id="month"
-                    onchange="jump()"
-                  >
-                    <option value="" selected disabled hidden>Month</option>
-                    <option value="0">Jan</option>
-                    <option value="1">Feb</option>
-                    <option value="2">Mar</option>
-                    <option value="3">Apr</option>
-                    <option value="4">May</option>
-                    <option value="5">Jun</option>
-                    <option value="6">Jul</option>
-                    <option value="7">Aug</option>
-                    <option value="8">Sep</option>
-                    <option value="9">Oct</option>
-                    <option value="10">Nov</option>
-                    <option value="11">Dec</option>
-                  </select>
-                </div>
-                <div class="year-wrapper">
-                  <select
-                    class="date-dropdown"
-                    name="year"
-                    id="year"
-                    onchange="jump()"
-                  >
-                    <option value="Year" selected disabled hidden>Year</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                    <option value="2028">2028</option>
-                    <option value="2029">2029</option>
-                    <option value="2030">2030</option>
-                    <option value="2031">2031</option>
-                    <option value="2032">2032</option>
-                    <option value="2033">2033</option>
-                    <option value="2034">2034</option>
-                    <option value="2035">2035</option>
-                    <option value="2036">2036</option>
-                    <option value="2037">2037</option>
-                    <option value="2038">2038</option>
-                    <option value="2039">2039</option>
-                    <option value="2040">2040</option>
-                    <option value="2041">2041</option>
-                    <option value="2042">2042</option>
-                    <option value="2043">2043</option>
-                    <option value="2044">2044</option>
-                    <option value="2045">2045</option>
-                    <option value="2046">2046</option>
-                    <option value="2047">2047</option>
-                    <option value="2048">2048</option>
-                    <option value="2049">2049</option>
-                    <option value="2050">2050</option>
-                    <option value="2051">2051</option>
-                    <option value="2052">2052</option>
-                    <option value="2053">2053</option>
-                    <option value="2054">2054</option>
-                    <option value="2055">2055</option>
-                    <option value="2056">2056</option>
-                    <option value="2057">2057</option>
-                    <option value="2058">2058</option>
-                    <option value="2059">2059</option>
-                    <option value="2060">2060</option>
-                  </select>
-                </div>
-                <div class="month-and-year-wrapper">
-                  <h2 class="calendar-current-date" id="month-and-year"></h2>
-                </div>
-              </div>
-            </form>
-
-            <div class="calendar" id="calendar">
-              <div class="calendar-header">
-                <div id="Sun">Sun</div>
-                <div id="Mon">Mon</div>
-                <div id="Tues">Tue</div>
-                <div id="Wed">Wed</div>
-                <div id="Thu">Thu</div>
-                <div id="Fri">Fri</div>
-                <div id="Sat">Sat</div>
-              </div>
-
-              <div id="calendar-body"></div>
-            </div>
-
-            <div class="quick-actions">
-              <button class="movement_buttons" id="previous" onclick="previous()">
-                Previous
-              </button>
-              <button class="movement_buttons" id="today" onclick="base()">
-                Selected Date
-              </button>
-              <button class="movement_buttons" id="next" onclick="next()">
-                Next
-              </button>
-            </div>
-            <br />
+    <div class="site-header">
+      <div class="header-name">
+        <h2>Full Stack</h2>
+      </div>
+      <div class="header-links">
+        <a href="../index.html">
+          <div class="link-wrapper">
+            Map
           </div>
-        </div>
-        <div class="daily-view-background">
-          <div class="daily-view-wrapper">
-            <div class="daily-view-header" id="daily-view-header">
-              <h2 id="daily-view-date"></h2>
-            </div>
-            <div class="daily-view-body">
-              <div class="daily-view-grid-wrapper">
-                <div class="daily-view-grid">
-                  <div class="daily-view-labels">
-                    <div class="daily-view-label">12 a.m.</div>
-                    <div class="daily-view-label">1 a.m.</div>
-                    <div class="daily-view-label">2 a.m.</div>
-                    <div class="daily-view-label">3 a.m.</div>
-                    <div class="daily-view-label">4 a.m.</div>
-                    <div class="daily-view-label">5 a.m.</div>
-                    <div class="daily-view-label">6 a.m.</div>
-                    <div class="daily-view-label">7 a.m.</div>
-                    <div class="daily-view-label">8 a.m.</div>
-                    <div class="daily-view-label">9 a.m.</div>
-                    <div class="daily-view-label">10 a.m.</div>
-                    <div class="daily-view-label">11 a.m.</div>
-                    <div class="daily-view-label">12 p.m.</div>
-                    <div class="daily-view-label">1 p.m.</div>
-                    <div class="daily-view-label">2 p.m.</div>
-                    <div class="daily-view-label">3 p.m.</div>
-                    <div class="daily-view-label">4 p.m.</div>
-                    <div class="daily-view-label">5 p.m.</div>
-                    <div class="daily-view-label">6 p.m.</div>
-                    <div class="daily-view-label">7 p.m.</div>
-                    <div class="daily-view-label">8 p.m.</div>
-                    <div class="daily-view-label">9 p.m.</div>
-                    <div class="daily-view-label">10 p.m.</div>
-                    <div class="daily-view-label">11 p.m.</div>
+        </a>
+        <a href="#">
+          <div class="link-wrapper">
+            Calendar
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="site-body">
+      <div class="left-sidebar"></div>
+      <div class="site-content">
+        <div class="calendar-view">
+          <div class="calendar-background">
+            <div class="calendar-wrapper">
+              <form class="date-form">
+                <div class="heading-wrapper">
+                  <div class="month-wrapper">
+                    <select
+                      class="date-dropdown"
+                      name="month"
+                      id="month"
+                      onchange="jump()"
+                    >
+                      <option value="" selected disabled hidden>Month</option>
+                      <option value="0">Jan</option>
+                      <option value="1">Feb</option>
+                      <option value="2">Mar</option>
+                      <option value="3">Apr</option>
+                      <option value="4">May</option>
+                      <option value="5">Jun</option>
+                      <option value="6">Jul</option>
+                      <option value="7">Aug</option>
+                      <option value="8">Sep</option>
+                      <option value="9">Oct</option>
+                      <option value="10">Nov</option>
+                      <option value="11">Dec</option>
+                    </select>
                   </div>
-                  <div class="daily-view-hourly">
-                    <div id="0-1" class="daily-view-hour first"></div>
-                    <div id="0-2" class="daily-view-hour second"></div>
-                    <div id="1-1" class="daily-view-hour first"></div>
-                    <div id="1-2" class="daily-view-hour second"></div>
-                    <div id="2-1" class="daily-view-hour first"></div>
-                    <div id="2-2" class="daily-view-hour second"></div>
-                    <div id="3-1" class="daily-view-hour first"></div>
-                    <div id="3-2" class="daily-view-hour second"></div>
-                    <div id="4-1" class="daily-view-hour first"></div>
-                    <div id="4-2" class="daily-view-hour second"></div>
-                    <div id="5-1" class="daily-view-hour first"></div>
-                    <div id="5-2" class="daily-view-hour second"></div>
-                    <div id="6-1" class="daily-view-hour first"></div>
-                    <div id="6-2" class="daily-view-hour second"></div>
-                    <div id="7-1" class="daily-view-hour first"></div>
-                    <div id="7-2" class="daily-view-hour second"></div>
-                    <div id="8-1" class="daily-view-hour first"></div>
-                    <div id="8-2" class="daily-view-hour second"></div>
-                    <div id="9-1" class="daily-view-hour first"></div>
-                    <div id="9-2" class="daily-view-hour second"></div>
-                    <div id="10-1" class="daily-view-hour first"></div>
-                    <div id="10-2" class="daily-view-hour second"></div>
-                    <div id="11-1" class="daily-view-hour first"></div>
-                    <div id="11-2" class="daily-view-hour second"></div>
-                    <div id="12-1" class="daily-view-hour first"></div>
-                    <div id="12-2" class="daily-view-hour second"></div>
-                    <div id="13-1" class="daily-view-hour first"></div>
-                    <div id="13-2" class="daily-view-hour second"></div>
-                    <div id="14-1" class="daily-view-hour first"></div>
-                    <div id="14-2" class="daily-view-hour second"></div>
-                    <div id="15-1" class="daily-view-hour first"></div>
-                    <div id="15-2" class="daily-view-hour second"></div>
-                    <div id="16-1" class="daily-view-hour first"></div>
-                    <div id="16-2" class="daily-view-hour second"></div>
-                    <div id="17-1" class="daily-view-hour first"></div>
-                    <div id="17-2" class="daily-view-hour second"></div>
-                    <div id="18-1" class="daily-view-hour first"></div>
-                    <div id="18-2" class="daily-view-hour second"></div>
-                    <div id="19-1" class="daily-view-hour first"></div>
-                    <div id="19-2" class="daily-view-hour second"></div>
-                    <div id="20-1" class="daily-view-hour first"></div>
-                    <div id="20-2" class="daily-view-hour second"></div>
-                    <div id="21-1" class="daily-view-hour first"></div>
-                    <div id="21-2" class="daily-view-hour second"></div>
-                    <div id="22-1" class="daily-view-hour first"></div>
-                    <div id="22-2" class="daily-view-hour second"></div>
-                    <div id="23-1" class="daily-view-hour first"></div>
-                    <div id="23-2" class="daily-view-hour second"></div>
+                  <div class="year-wrapper">
+                    <select
+                      class="date-dropdown"
+                      name="year"
+                      id="year"
+                      onchange="jump()"
+                    >
+                      <option value="Year" selected disabled hidden>Year</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                      <option value="2031">2031</option>
+                      <option value="2032">2032</option>
+                      <option value="2033">2033</option>
+                      <option value="2034">2034</option>
+                      <option value="2035">2035</option>
+                      <option value="2036">2036</option>
+                      <option value="2037">2037</option>
+                      <option value="2038">2038</option>
+                      <option value="2039">2039</option>
+                      <option value="2040">2040</option>
+                      <option value="2041">2041</option>
+                      <option value="2042">2042</option>
+                      <option value="2043">2043</option>
+                      <option value="2044">2044</option>
+                      <option value="2045">2045</option>
+                      <option value="2046">2046</option>
+                      <option value="2047">2047</option>
+                      <option value="2048">2048</option>
+                      <option value="2049">2049</option>
+                      <option value="2050">2050</option>
+                      <option value="2051">2051</option>
+                      <option value="2052">2052</option>
+                      <option value="2053">2053</option>
+                      <option value="2054">2054</option>
+                      <option value="2055">2055</option>
+                      <option value="2056">2056</option>
+                      <option value="2057">2057</option>
+                      <option value="2058">2058</option>
+                      <option value="2059">2059</option>
+                      <option value="2060">2060</option>
+                    </select>
+                  </div>
+                  <div class="month-and-year-wrapper">
+                    <h2 class="calendar-current-date" id="month-and-year"></h2>
+                  </div>
+                </div>
+              </form>
+
+              <div class="calendar" id="calendar">
+                <div class="calendar-header">
+                  <div id="Sun">Sun</div>
+                  <div id="Mon">Mon</div>
+                  <div id="Tues">Tue</div>
+                  <div id="Wed">Wed</div>
+                  <div id="Thu">Thu</div>
+                  <div id="Fri">Fri</div>
+                  <div id="Sat">Sat</div>
+                </div>
+
+                <div id="calendar-body"></div>
+              </div>
+
+              <div class="quick-actions">
+                <button class="movement_buttons" id="previous" onclick="previous()">
+                  Previous
+                </button>
+                <button class="movement_buttons" id="today" onclick="base()">
+                  Selected Date
+                </button>
+                <button class="movement_buttons" id="next" onclick="next()">
+                  Next
+                </button>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div class="daily-view-background">
+            <div class="daily-view-wrapper">
+              <div class="daily-view-header" id="daily-view-header">
+                <h2 id="daily-view-date"></h2>
+              </div>
+              <div class="daily-view-body">
+                <div class="daily-view-grid-wrapper">
+                  <div class="daily-view-grid">
+                    <div class="daily-view-labels">
+                      <div class="daily-view-label">12 a.m.</div>
+                      <div class="daily-view-label">1 a.m.</div>
+                      <div class="daily-view-label">2 a.m.</div>
+                      <div class="daily-view-label">3 a.m.</div>
+                      <div class="daily-view-label">4 a.m.</div>
+                      <div class="daily-view-label">5 a.m.</div>
+                      <div class="daily-view-label">6 a.m.</div>
+                      <div class="daily-view-label">7 a.m.</div>
+                      <div class="daily-view-label">8 a.m.</div>
+                      <div class="daily-view-label">9 a.m.</div>
+                      <div class="daily-view-label">10 a.m.</div>
+                      <div class="daily-view-label">11 a.m.</div>
+                      <div class="daily-view-label">12 p.m.</div>
+                      <div class="daily-view-label">1 p.m.</div>
+                      <div class="daily-view-label">2 p.m.</div>
+                      <div class="daily-view-label">3 p.m.</div>
+                      <div class="daily-view-label">4 p.m.</div>
+                      <div class="daily-view-label">5 p.m.</div>
+                      <div class="daily-view-label">6 p.m.</div>
+                      <div class="daily-view-label">7 p.m.</div>
+                      <div class="daily-view-label">8 p.m.</div>
+                      <div class="daily-view-label">9 p.m.</div>
+                      <div class="daily-view-label">10 p.m.</div>
+                      <div class="daily-view-label">11 p.m.</div>
+                    </div>
+                    <div class="daily-view-hourly">
+                      <div id="0-1" class="daily-view-hour first"></div>
+                      <div id="0-2" class="daily-view-hour second"></div>
+                      <div id="1-1" class="daily-view-hour first"></div>
+                      <div id="1-2" class="daily-view-hour second"></div>
+                      <div id="2-1" class="daily-view-hour first"></div>
+                      <div id="2-2" class="daily-view-hour second"></div>
+                      <div id="3-1" class="daily-view-hour first"></div>
+                      <div id="3-2" class="daily-view-hour second"></div>
+                      <div id="4-1" class="daily-view-hour first"></div>
+                      <div id="4-2" class="daily-view-hour second"></div>
+                      <div id="5-1" class="daily-view-hour first"></div>
+                      <div id="5-2" class="daily-view-hour second"></div>
+                      <div id="6-1" class="daily-view-hour first"></div>
+                      <div id="6-2" class="daily-view-hour second"></div>
+                      <div id="7-1" class="daily-view-hour first"></div>
+                      <div id="7-2" class="daily-view-hour second"></div>
+                      <div id="8-1" class="daily-view-hour first"></div>
+                      <div id="8-2" class="daily-view-hour second"></div>
+                      <div id="9-1" class="daily-view-hour first"></div>
+                      <div id="9-2" class="daily-view-hour second"></div>
+                      <div id="10-1" class="daily-view-hour first"></div>
+                      <div id="10-2" class="daily-view-hour second"></div>
+                      <div id="11-1" class="daily-view-hour first"></div>
+                      <div id="11-2" class="daily-view-hour second"></div>
+                      <div id="12-1" class="daily-view-hour first"></div>
+                      <div id="12-2" class="daily-view-hour second"></div>
+                      <div id="13-1" class="daily-view-hour first"></div>
+                      <div id="13-2" class="daily-view-hour second"></div>
+                      <div id="14-1" class="daily-view-hour first"></div>
+                      <div id="14-2" class="daily-view-hour second"></div>
+                      <div id="15-1" class="daily-view-hour first"></div>
+                      <div id="15-2" class="daily-view-hour second"></div>
+                      <div id="16-1" class="daily-view-hour first"></div>
+                      <div id="16-2" class="daily-view-hour second"></div>
+                      <div id="17-1" class="daily-view-hour first"></div>
+                      <div id="17-2" class="daily-view-hour second"></div>
+                      <div id="18-1" class="daily-view-hour first"></div>
+                      <div id="18-2" class="daily-view-hour second"></div>
+                      <div id="19-1" class="daily-view-hour first"></div>
+                      <div id="19-2" class="daily-view-hour second"></div>
+                      <div id="20-1" class="daily-view-hour first"></div>
+                      <div id="20-2" class="daily-view-hour second"></div>
+                      <div id="21-1" class="daily-view-hour first"></div>
+                      <div id="21-2" class="daily-view-hour second"></div>
+                      <div id="22-1" class="daily-view-hour first"></div>
+                      <div id="22-2" class="daily-view-hour second"></div>
+                      <div id="23-1" class="daily-view-hour first"></div>
+                      <div id="23-2" class="daily-view-hour second"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -210,6 +230,7 @@
           </div>
         </div>
       </div>
+        
       <div class="right-sidebar"></div>
     </div>
     
