@@ -6,13 +6,19 @@
 	</head>
 <div class="form">
 <form action="/submit" method="post">
-<p><input type="text" placeholder="Enter Username:" id="user" name="user"></p>
+<p><input type="text" placeholder="Enter Username:" id="username" name="username"></p>
 <p><button type="submit" id="user-submit" value=User>Enter</button></p>
+<form action="/home" method="post">
 <p><input type="text" placeholder="Enter Home Address:" id="address" name="address"></p>
 <p><button type="submit" id="home-submit" value=Home>Set Home</button></p>
 </div>
 
 <script type="text/javascript">
+  if(mode == 0)
+    document.getElementByID('home-submit').setVisible(false);
+  else if(mode == 1)
+    document.getElementByID('user-submit').setVisible(false);
+
   document.getElementById('user-submit').onclick = function()
   {
     var username = document.getElementById('user').value; // Send to database

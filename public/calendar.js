@@ -180,9 +180,8 @@ function show(month, year) {
 }
 
 // getter to use calendar body in other scripts
-function getBody() {
+export function getBody() {
   return body;
 } 
 
-exports.calendar = getBody;
 

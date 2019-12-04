@@ -1,0 +1,31 @@
+doctype html
+head
+  title User Login
+  link(rel='stylesheet' type='text/css' href='style.css')
+.form
+  form(action='/submit' method='post')
+    p
+      input#username(type='text' placeholder='Enter Username:' name='username')
+    p
+      button#user-submit(type='submit' value='User') Enter
+    form(action='/home' method='post')
+      p
+        input#address(type='text' placeholder='Enter Home Address:' name='address')
+      p
+        button#home-submit(type='submit' value='Home') Set Home
+script(type='text/javascript').
+  if(mode == 0)
+  document.getElementByID('home-submit').setVisible(false);
+  else if(mode == 1)
+  document.getElementByID('user-submit').setVisible(false);
+  document.getElementById('user-submit').onclick = function()
+  {
+  var username = document.getElementById('user').value; // Send to database
+  };
+  document.getElementById('home-submit').onclick = function()
+  {
+  var homeAddr = document.getElementById('address').value; // Send to database
+  };
+script(src='app.js')
+script(async='' defer='' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0&libraries=places&callback=initMap')
+
