@@ -1,4 +1,5 @@
-var calendar = require('./calendar.js');
+//var calendar = require('./calendar.js');
+var home;
 
 const mapStyle = [{
 	'featureType': 'administrative',
@@ -101,7 +102,7 @@ function getURL(url, callback) {
 }
 
 function initMap() {
-	const username = document.getElementById('user').value; // or calendar.user???
+	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 11,
 		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland
@@ -111,16 +112,21 @@ function initMap() {
 		},
 	});
 
-	map.data.loadGeoJson('places.json', {idPropertyName: 'username'});
+	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
 
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
 		var img = `./img/icon_${feature.getProperty('category')}.png`;
 		var geo = `${feature.getGeometry().get()}`;
 		console.log(geo);
+		if(feature.getProperty('category') == 'home') {//&& feature.getProperty('username') === username)
+			home = feature;
+			console.log(`${feature.getGeometry().get()}`);
+			console.log(home);
+		}
 		return {	
 			icon: {
-        visible: feature.getProperty('username') === username, /// set to true if username of place matches
+        		//visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			}
@@ -196,16 +202,22 @@ function initMap() {
 		const time = event.feature.getProperty('time');
 		const position = event.feature.getGeometry().get();
 		const content = `
-			<div style="margin-left:220px; margin-bottom:20px;">
+			<div style="margin: none;">
 			<h2>${name}</h2><p>${description}</p>
 			<p>${date}<br/><b>Time: </b> ${time}</p>
 			<p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+			<button onclick=addEvent(event.feature)>Add Calendar Event</button>
 			</div>
 			`;
 		infoWindow.setContent(content);
 		infoWindow.setPosition(position);
+		infoWindow.setZIndex(9999);
 		infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
+		map.setCenter(position);
 		infoWindow.open(map);
+		map.addListener('click', () => {
+			infoWindow.close(map);
+		});
 	});
 
 
@@ -222,7 +234,7 @@ function initMap() {
 
 	card.setAttribute('id', 'pac-card');
 	title.setAttribute('id', 'title');
-	title.textContent = 'Find the nearest place';
+	title.textContent = 'Address Search';
 	titleBar.appendChild(title);
 	container.setAttribute('id', 'pac-container');
 	input.setAttribute('id', 'pac-input');
@@ -231,7 +243,7 @@ function initMap() {
 	container.appendChild(input);
 	card.appendChild(titleBar);
 	card.appendChild(container);
-	CenterHome(card, map, map.getCenter());
+	CenterHome(card, map, map.getCenter(), home);
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
 	const autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -240,7 +252,7 @@ function initMap() {
 	// Set origin point when user selects an address
 	const originMarker = new google.maps.Marker({map: map});
 	originMarker.setVisible(false);
-	var originLocation = map.getCenter();
+	var originLocation = home;
 	console.log(originLocation);
 
 	autocomplete.addListener('place_changed', async () => {
@@ -325,6 +337,8 @@ async function calculateDistances(data, origin) {
 	return distancesList;
 }
 
+// function to take address, call places api and return coordinates
+
 // Displays list of calendar events
 function showEventsList(data, places) {
 	if (places.length == 0) {
@@ -371,7 +385,7 @@ function showEventsList(data, places) {
 	return;
 }
 
-function CenterHome(controlElement, map, center) {
+function CenterHome(controlElement, map, center, home) {
 	var control = this;
 	control.center_ = center;
 	controlElement.style.clear = 'both';
@@ -397,7 +411,7 @@ function CenterHome(controlElement, map, center) {
 	setCenter.appendChild(centerText);
 
 	centerHome.addEventListener('click', function() {
-		map.setCenter(center);
+		map.setCenter(home.getGeometry().get());
 	});
 
 	setCenter.addEventListener('click', function() {
