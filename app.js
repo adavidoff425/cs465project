@@ -46,7 +46,7 @@ app.post('/home', function(req, res, next) { // new user must enter home address
 //app.use('./index/edit', editRouter);*/
 
 
-server.post('/test_db', (req, res) =>{
+app.post('/test_db', (req, res) =>{
     fs.readFile('./db.json', 'utf8', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
@@ -80,7 +80,7 @@ server.post('/test_db', (req, res) =>{
     // res.end()
 });
 
-server.post('/test_db_insert', (req, res) =>{
+app.post('/test_db_insert', (req, res) =>{
     fs.readFile('./db.json', 'utf8', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
