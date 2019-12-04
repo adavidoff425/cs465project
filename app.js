@@ -33,7 +33,7 @@ app.get("/home", function(req, res) {
 });
 
 app.post("/test_db", (req, res) => {
-  console.log("here");
+  //console.log("here");
   fs.readFile("./db.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("File read failed:", err);
