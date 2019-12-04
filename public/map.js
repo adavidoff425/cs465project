@@ -1,5 +1,6 @@
-//const user = document.getElementById('map-data').getAttribute('data-user');
-//console.log(user);
+const user = document.getElementById('map-data').getAttribute('data-user');
+console.log(user);
+const home = document.getElementById()
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
@@ -102,7 +103,6 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
-
 function initMap() {
 	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
@@ -155,7 +155,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});*/
+})
 
 
 	getURL('places.json', function (data) {
@@ -190,7 +190,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});
+	});*/
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
