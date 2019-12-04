@@ -1,5 +1,7 @@
-//const user = document.getElementById('map-data').getAttribute('data-user');
-//console.log(user);
+const user = document.getElementById('map-data').getAttribute('data-user');
+console.log(user);
+const home = document.getElementById('map-data').getAttribute('data-address');
+console.log(home);
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
@@ -102,7 +104,6 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
-
 function initMap() {
 	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
@@ -155,7 +156,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});*/
+})
 
 
 	getURL('places.json', function (data) {
@@ -190,7 +191,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});
+	});*/
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
@@ -431,7 +432,7 @@ async function CenterHome(controlElement, map, center, home) {
 	geojson.geometry = {type: _type, coordinates: _latlng};
 	_feature.id = _id;
 	geojson.features.push(_feature);
-}
+}*/
 
 function addrSearch(query) {
   var service = new google.maps.places.PlacesService(map);  
@@ -445,4 +446,4 @@ function addrSearch(query) {
       return result[0].toGeoJson();  
     }
   });
-}*/
+}

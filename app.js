@@ -20,7 +20,7 @@ app.use('/', landing);
 app.use('/home', home);
 
 app.get('/', function(req, res, next) {
-  res.render('index');  // implement view
+  res.render('index');  
 });
 
 app.get('/calendar', function (req, res) {
@@ -30,31 +30,6 @@ app.get('/calendar', function (req, res) {
 app.get('/home', function (req, res) {
   res.render('home');
 });
-
-/*app.post('/submit', function(req, res, next) {
-  var username = req.body.username; 
-// if(username == alreadyUser) // implement
-    res.render('home', { user: username });
- // else
-    res.render('index', { mode: 1 }); 
-}); // moved to index.js route */
-
-
-
-/*
-app.post('/home', function(req, res, next) { // new user must enter home address
-  var address = req.body.address;
-  var query = address.split(' ').join('+');
-  var home = map.addrSearch(query); // implement
-  console.log(home);
-  if(home)
-    res.render('home', { user: username, home: home }); // pass new user and address query
-  else {
-    window.alert('Address not found. Please try again.');
-    res.render('index', { mode: 1 });
-  }
-});*/
-
 
 app.post('/test_db', (req, res) =>{
     fs.readFile('./db.json', 'utf8', (err, jsonString) => {
