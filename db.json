@@ -16,7 +16,7 @@
                 "end_time": "13",
                 "description": "CS4/565",
                 "name": "Full Stack Web Development",
-                "date": "9/30/19",
+                "date": "12/5/19",
                 "placeid": "01",
                 "username": "alexdavidoff"
             }
@@ -50,12 +50,12 @@
             },
             "type": "Feature",
             "properties": {
-                "category": "school",
+                "category": "personal",
                 "start_time": "12",
                 "end_time": "15",
                 "description": "CS4/565",
-                "name": "Full Stack Web Development",
-                "date": "9/30/19",
+                "name": "grocieries",
+                "date": "12/5/19",
                 "placeid": "01",
                 "username": "Bob"
             }
