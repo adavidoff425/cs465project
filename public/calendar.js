@@ -24,6 +24,32 @@ let months = [
 
 let monthAndYear = document.getElementById("month-and-year");
 let dailyViewDate = document.getElementById("daily-view-date");
+let events = undefined;
+
+var req_data = {
+  event_name: "anniversery",
+  username: "adavidoff425",
+  category: "personal",
+  date: "20/12/2019",
+  time: "8am",
+  adress: "123 abe lincoln street",
+  description: "an anniversary"
+};
+
+$.ajax({
+  type: "post",
+  url: "/test_db",
+  dataType: "json",
+  data: req_data,
+  success: function(data) {
+    console.log(data);
+    events = data;
+  },
+  complete: function() {
+    console.log("complete");
+  }
+});
+
 show(currentMonth, currentYear);
 
 //go to next month
@@ -83,7 +109,7 @@ function show(month, year) {
   let body = document.getElementById("calendar-body");
 
   // make sure everything is empty
-  body.innerHTML = " ";
+  body.innerHTML = "";
 
   //set the heading of calendar
   monthAndYear.innerHTML = months[month] + " " + year;
@@ -190,7 +216,7 @@ function show(month, year) {
   showEvent("work", 8, 16);
 }
 
-// getter to use calendar body in other script
+// getter to use calendar body in other scripts
 function showEvent(eventName, startTime, endTime) {
   Number.prototype.mod = function(a) {
     return ((this % a) + a) % a;
@@ -209,7 +235,7 @@ function showEvent(eventName, startTime, endTime) {
   //create div for event
   var event = document.createElement("div");
   //add class for div
-  event.classList.add("event");
+  event.classList.add(events);
   //create text node for event
   var eventText = document.createTextNode(eventName + " " + colorCount);
   //add text to event
