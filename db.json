@@ -25,8 +25,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -122.6106751,
-                    45.5026962
+                    -122.678947,
+                    45.510960
                 ]
             },
             "type": "Feature",
@@ -44,8 +44,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -122.6810424,
-                    45.509023
+                    -122.682701,
+                    45.515682
                 ]
             },
             "type": "Feature",
@@ -64,8 +64,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -122.6810424,
-                    45.509023
+                    -122.675581,
+                    45.515201
                 ]
             },
             "type": "Feature",
@@ -105,28 +105,8 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -122.6810424,
-                    45.509023
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "school",
-                "start_time": "9",
-                "end_time": "10",
-                "description": "CS",
-                "name": "Class",
-                "date": "12/6/2019",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.6810424,
-                    45.509023
+                    -122.678947,
+                    45.510960
                 ]
             },
             "type": "Feature",
