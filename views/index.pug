@@ -11,10 +11,6 @@ head
     p
       button#user-submit(type='submit' value='User') Enter
 script(type='text/javascript').
-  if(mode == 0)
-  document.getElementByID('home-submit').style.visibility = 'hidden';
-  else if(mode == 1)
-  document.getElementByID('user-submit').style.visibility = 'hidden';
   document.getElementById('user-submit').onclick = function()
   {
   var username = document.getElementById('user').value; // Send to database
