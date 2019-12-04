@@ -77,7 +77,7 @@ function show(month, year) {
   let body = document.getElementById("calendar-body");
 
   // make sure everything is empty
-  body.innerHTML = "";
+  body.innerHTML = " ";
 
   //set the heading of calendar
   monthAndYear.innerHTML = months[month] + " " + year;
@@ -180,8 +180,9 @@ function show(month, year) {
 }
 
 // getter to use calendar body in other scripts
-export function getBody() {
+module.exports(function getBody() {
   return body;
-} 
+});
 
+//export { getBody() as body };
 

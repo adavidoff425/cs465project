@@ -1,7 +1,6 @@
-//var calendar = require('./calendar.js');
 var home;
 
-const apiKey = process.env.APIKEY;
+const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -102,6 +101,7 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
+
 function initMap() {
 	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
@@ -118,17 +118,14 @@ function initMap() {
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
 		var img = `./img/icon_${feature.getProperty('category')}.png`;
-		var geo = `${feature.getGeometry().get()}`;
-		if(`${feature.getProperty('category') == 'home'}`)
-      			map.setCenter(`${feature.getGeometry().get()}`);	
+		if(`${feature.getProperty('category')}` == 'home') {
+		    var lat = parseFloat(`${feature.getGeometry().get().lat()}`); 
+			var lng = parseFloat(`${feature.getGeometry().get().lng()}`);
+			const home = '['+lat+','+lng+']';
 		}
 		return {	
 			icon: {
         		//visible: feature.getProperty('username') === username, /// set to true if username of place matches
-    
-		return {	
-			icon: {
-        			//visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			}
@@ -280,7 +277,6 @@ function initMap() {
 
 		return;
 	});
-
 }
 
 async function calculateDistances(data, origin) {
@@ -386,7 +382,7 @@ function showEventsList(data, places) {
 	return;
 }
 
-function CenterHome(controlElement, map, center, home) {
+async function CenterHome(controlElement, map, center, home) {
 	var control = this;
 	control.center_ = center;
 	controlElement.style.clear = 'both';
@@ -412,12 +408,13 @@ function CenterHome(controlElement, map, center, home) {
 	setCenter.appendChild(centerText);
 
 	centerHome.addEventListener('click', function() {
-		map.setCenter(home.getGeometry().get());
+		map.setCenter(home);
 	});
 
 	setCenter.addEventListener('click', function() {
 		var current = control.center_;
-		map.setCenter(current);
+		console.log(home);
+		//map.setCenter(current);
 	});
 
 	return;

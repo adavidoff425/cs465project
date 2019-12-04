@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var username = "";
+var user = require('./landing.js');
 
-/* GET landing page. */
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('landing', { title: 'User Login' });
-});
+  res.render('home', { title: 'User Map' });
+})
+
+
 
 module.exports = router;
-exports.username = username;
