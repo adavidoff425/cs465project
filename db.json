@@ -1,0 +1,84 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -122.6810424,
+                    45.509023
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "category": "school",
+                "start_time": "8",
+                "end_time": "13",
+                "description": "CS4/565",
+                "name": "Full Stack Web Development",
+                "date": "12/5/19",
+                "placeid": "01",
+                "username": "alexdavidoff"
+            }
+        },
+        {
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -122.6106751,
+                    45.5026962
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "category": "home",
+                "time": "",
+                "description": "Where i live",
+                "name": "HOME",
+                "date": "",
+                "placeid": "02",
+                "username": "alexdavidoff"
+            }
+        },
+        {
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -122.6810424,
+                    45.509023
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "category": "personal",
+                "start_time": "12",
+                "end_time": "15",
+                "description": "CS4/565",
+                "name": "grocieries",
+                "date": "12/5/19",
+                "placeid": "01",
+                "username": "Bob"
+            }
+        },
+        {
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -122.6810424,
+                    45.509023
+                ]
+            },
+            "type": "Feature",
+            "properties": {
+                "category": "personal",
+                "start_time": "9",
+                "end_time": "10",
+                "description": "an anniversary",
+                "name": "anniversery",
+                "date": "20/12/2019",
+                "placeid": "01",
+                "username": "alexdavidoff"
+            }
+        }
+    ]
+}
