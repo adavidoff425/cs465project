@@ -1,5 +1,7 @@
-var calendar = require('./calendar.js');
+const user = document.getElementById('map-data').getAttribute('data-user');
+console.log(user);
 
+const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
 	'featureType': 'administrative',
 	'elementType': 'all',
@@ -100,36 +102,38 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
+
 function initMap() {
-	const username = document.getElementById('user').value; // or calendar.user???
+	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 11,
-		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland
+		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland 
 		styles: mapStyle,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.RIGHT_BOTTOM
 		},
 	});
 
-	map.data.loadGeoJson('places.json', {idPropertyName: 'username'});
+	map.data.loadGeoJson('places.json', {idPropertyName: 'placeid'});
 
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
 		var img = `./img/icon_${feature.getProperty('category')}.png`;
-		var geo = `${feature.getGeometry().get()}`;
-		console.log(geo);
+		if(`${feature.getProperty('category')}` == 'home') {
+		    var lat = parseFloat(`${feature.getGeometry().get().lat()}`); 
+			var lng = parseFloat(`${feature.getGeometry().get().lng()}`);
+			const home = '['+lat+','+lng+']';
+		}
 		return {	
 			icon: {
-        visible: feature.getProperty('username') === username, /// set to true if username of place matches
+        		//visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			}
 		};
 	});
 	
-	const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 	const infoWindow = new google.maps.InfoWindow();
-
 
 	/*	getURL('users.json', function (data) {
 		var newUser = true;
@@ -151,7 +155,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});
+});*/
 
 
 	getURL('places.json', function (data) {
@@ -186,7 +190,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});*/
+	});
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
@@ -196,16 +200,21 @@ function initMap() {
 		const time = event.feature.getProperty('time');
 		const position = event.feature.getGeometry().get();
 		const content = `
-			<div style="margin-left:220px; margin-bottom:20px;">
+			<div style="margin: none;">
 			<h2>${name}</h2><p>${description}</p>
 			<p>${date}<br/><b>Time: </b> ${time}</p>
-			<p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
+			<button onclick=addEvent(event.feature)>Add Calendar Event</button>
 			</div>
-			`;
+		`;
 		infoWindow.setContent(content);
 		infoWindow.setPosition(position);
+		infoWindow.setZIndex(9999);
 		infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
+		map.setCenter(position);
 		infoWindow.open(map);
+		map.addListener('click', () => {
+			infoWindow.close(map);
+		});
 	});
 
 
@@ -222,7 +231,7 @@ function initMap() {
 
 	card.setAttribute('id', 'pac-card');
 	title.setAttribute('id', 'title');
-	title.textContent = 'Find the nearest place';
+	title.textContent = 'Address Search';
 	titleBar.appendChild(title);
 	container.setAttribute('id', 'pac-container');
 	input.setAttribute('id', 'pac-input');
@@ -231,7 +240,7 @@ function initMap() {
 	container.appendChild(input);
 	card.appendChild(titleBar);
 	card.appendChild(container);
-	CenterHome(card, map, map.getCenter());
+	CenterHome(card, map, map.getCenter(), home);
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
 	const autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -240,7 +249,7 @@ function initMap() {
 	// Set origin point when user selects an address
 	const originMarker = new google.maps.Marker({map: map});
 	originMarker.setVisible(false);
-	var originLocation = map.getCenter();
+	var originLocation = home;
 	console.log(originLocation);
 
 	autocomplete.addListener('place_changed', async () => {
@@ -267,7 +276,6 @@ function initMap() {
 
 		return;
 	});
-
 }
 
 async function calculateDistances(data, origin) {
@@ -325,6 +333,8 @@ async function calculateDistances(data, origin) {
 	return distancesList;
 }
 
+// function to take address, call places api and return coordinates
+
 // Displays list of calendar events
 function showEventsList(data, places) {
 	if (places.length == 0) {
@@ -371,7 +381,7 @@ function showEventsList(data, places) {
 	return;
 }
 
-function CenterHome(controlElement, map, center) {
+async function CenterHome(controlElement, map, center, home) {
 	var control = this;
 	control.center_ = center;
 	controlElement.style.clear = 'both';
@@ -397,34 +407,42 @@ function CenterHome(controlElement, map, center) {
 	setCenter.appendChild(centerText);
 
 	centerHome.addEventListener('click', function() {
-		map.setCenter(center);
+		map.setCenter(home);
 	});
 
 	setCenter.addEventListener('click', function() {
 		var current = control.center_;
-		map.setCenter(current);
+		console.log(home);
+		//map.setCenter(current);
 	});
 
 	return;
 }
 
+
 // Function to return geojson object for marker on map, not in use yet
-google.maps.Map.prototype.getGeoJson = function(callback) {
-	var geojson = {"type": "FeatureCollection", "features": []},
-		func = function(place) {
-			place = (place.get)?place.get():place;
-			return([place.lng(), place.lat()]);
-		};
-	this.data.forEach(function(marker) {
-		var _feature = {type: 'Feature', properties: {}};
-		var _id = marker.getId();
-		var _geometry = marker.getGeometry();
-		var _type = _geometry.getType();
-		var _latlng = func(_geometry);
-		_feature.geometry = {type: _type, coordinates: _latlng};
-		_feature.id = _id;
-		geojson.features.push(_feature);
-	});
-	callback(geojson);
-	return geojson;
+/*function toGeoJson(place) {
+  var geojson = {geometry: {}, "features": []},
+	var _feature = {type: 'Feature', properties: {}};
+	var _id = place.place_id;
+	var _geometry = place.getGeometry();
+	var _type = _geometry.getType();
+	var _latlng = _geometry.get();
+	geojson.geometry = {type: _type, coordinates: _latlng};
+	_feature.id = _id;
+	geojson.features.push(_feature);
 }
+
+function addrSearch(query) {
+  var service = new google.maps.places.PlacesService(map);  
+  var search = {
+    query: query,
+    fields: ['formatted_address'],
+  };
+
+  service.findPlaceFromQuery(search, function(result, status) {
+    if (status === google.maps.place.PlacesServiceStatus.OK) {
+      return result[0].toGeoJson();  
+    }
+  });
+}*/
