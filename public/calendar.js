@@ -5,8 +5,7 @@ let currentYear = today.getFullYear();
 let yearSelected = document.getElementById("year");
 let monthSelected = document.getElementById("month");
 let body = document.getElementById("calendar-body"); // moved body to global variable
-
-console.log("made it");
+let colorCount = 0;
 
 let months = [
   "January",
@@ -69,6 +68,13 @@ function jump() {
   show(currentMonth, currentYear);
 }
 
+var json =
+  '{ "type": "FeatureCollection", "features": [ { "geometry": { "type": "Point", "coordinates": "[-122.6810424, 45.509023]" }, "type": "Feature", "properties": { "category": "school", "time": "8am - 10am", "description": "CS4/565", "name": "Full Stack Web Development", "date": "9/30/19-12/6/19", "placeid": "01", "username": "alexdavidoff" } } ] }';
+var obj = JSON.parse(json);
+
+var features = obj.features[0];
+console.log(obj.length);
+
 function show(month, year) {
   //console.log(month + " " + year);
   let firstDay = new Date(year, month).getDay();
@@ -122,6 +128,7 @@ function show(month, year) {
         //actual date
         let cell = document.createElement("div");
         cell.id = date;
+        //on click set the selected date to this date
         cell.onclick = function changeDateSelected() {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
@@ -129,15 +136,18 @@ function show(month, year) {
           show(currentMonth, currentYear);
         };
 
+        //add classes for cell
         cell.classList.add("calendar-col");
         cell.classList.add("date");
 
+        //create text for cell
         let cellText = document.createTextNode(date);
 
         //split up the date cell
         let numberCell = document.createElement("div");
         numberCell.id = date;
         numberCell.classList.add("calendar-cell-date");
+        //add the same onclick function for inner divs
         numberCell.onclick = function changeDateSelected() {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
@@ -147,6 +157,7 @@ function show(month, year) {
         let iconCell = document.createElement("div");
         iconCell.id = date;
         iconCell.classList.add("calendar-cell-icon");
+        //add the same onclick function for inner divs
         iconCell.onclick = function changeDateSelected() {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
@@ -175,14 +186,44 @@ function show(month, year) {
     }
     body.appendChild(row); // appending each row into calendar body.
   }
-
-  //create the daily view
+  //show the events
+  showEvent("work", 8, 16);
 }
 
-// getter to use calendar body in other scripts
-module.exports(function getBody() {
-  return body;
-});
+// getter to use calendar body in other script
+function showEvent(eventName, startTime, endTime) {
+  Number.prototype.mod = function(a) {
+    return ((this % a) + a) % a;
+  };
 
-//export { getBody() as body };
+  var eventColors = [
+    "rgb(255,179,186)",
+    "rgb(255,223,186)",
+    "rgb(255,255,186)",
+    "rgb(186,255,201)",
+    "rgb(186,225,255)",
+    "rgb(227,198,240)"
+  ];
+  //grab the grid
+  var dailyViewGrid = document.getElementById("daily-view-grid");
+  //create div for event
+  var event = document.createElement("div");
+  //add class for div
+  event.classList.add("event");
+  //create text node for event
+  var eventText = document.createTextNode(eventName + " " + colorCount);
+  //add text to event
+  event.appendChild(eventText);
 
+  //cycle the color
+  colorCount = (colorCount + 1).mod(eventColors.length);
+  //set color
+  event.style.background = eventColors[colorCount];
+  event.style.opacity = 0.7;
+  //set span times
+  startSpan = ++startTime * 2 + 1;
+  endSpan = ++endTime * 2 + 1;
+  event.style.gridArea = startSpan + " / 1 / " + endSpan + " / 2";
+  //append to daily-grid
+  dailyViewGrid.appendChild(event);
+}

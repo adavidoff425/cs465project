@@ -3,7 +3,7 @@
   <head>
     <title>View Calendar</title>
     <link rel="stylesheet" type="text/css" href="../styles/calendar.css" />
-    <link rel="stylesheet" type="text/css" href="../styles/template.css">
+    <link rel="stylesheet" type="text/css" href="../styles/template.css" />
   </head>
   <body>
     <div class="site-header">
@@ -60,7 +60,9 @@
                       id="year"
                       onchange="jump()"
                     >
-                      <option value="Year" selected disabled hidden>Year</option>
+                      <option value="Year" selected disabled hidden
+                        >Year</option
+                      >
                       <option value="2019">2019</option>
                       <option value="2020">2020</option>
                       <option value="2021">2021</option>
@@ -126,7 +128,11 @@
               </div>
 
               <div class="quick-actions">
-                <button class="movement_buttons" id="previous" onclick="previous()">
+                <button
+                  class="movement_buttons"
+                  id="previous"
+                  onclick="previous()"
+                >
                   Previous
                 </button>
                 <button class="movement_buttons" id="today" onclick="base()">
@@ -173,7 +179,7 @@
                       <div class="daily-view-label">10 p.m.</div>
                       <div class="daily-view-label">11 p.m.</div>
                     </div>
-                    <div class="daily-view-hourly">
+                    <div class="daily-view-hourly" id="daily-view-grid">
                       <div id="0-1" class="daily-view-hour first"></div>
                       <div id="0-2" class="daily-view-hour second"></div>
                       <div id="1-1" class="daily-view-hour first"></div>
@@ -230,11 +236,9 @@
           </div>
         </div>
       </div>
-        
+
       <div class="right-sidebar"></div>
     </div>
-    
-  
-  <script src="calendar.js"></script>
+    <script src="../calendar.js"></script>
   </body>
 </html>
