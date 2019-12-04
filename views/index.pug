@@ -1,11 +1,28 @@
 doctype html
 head
-  title User Calendar
-  link(rel='stylesheet' type='text/css' href='styles/style.css')
-.nav-links
-  a(href='./templates/landing.html') Sign Out
-  a(href='./templates/calendar.html') View Calendar
-#map
-script(type='text/javascript' src='map.js')
+  title User Login
+  link(rel='stylesheet' type='text/css' href='style.css')
+.form
+  form(action='/submit' method='post')
+    p
+      input#username(type='text' placeholder='Enter Username:' name='username')
+    p
+      input#address(type='text' placeholder='Enter Home Address:' name='address')
+    p
+      button#user-submit(type='submit' value='User') Enter
+script(type='text/javascript').
+  if(mode == 0)
+  document.getElementByID('home-submit').style.visibility = 'hidden';
+  else if(mode == 1)
+  document.getElementByID('user-submit').style.visibility = 'hidden';
+  document.getElementById('user-submit').onclick = function()
+  {
+  var username = document.getElementById('user').value; // Send to database
+  };
+  document.getElementById('home-submit').onclick = function()
+  {
+  var homeAddr = document.getElementById('address').value; // Send to database
+  };
+script(src='map.js')
 script(async='' defer='' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0&libraries=places&callback=initMap')
 

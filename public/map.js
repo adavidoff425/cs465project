@@ -1,4 +1,5 @@
-var home;
+const user = document.getElementById('map-data').getAttribute('data-user');
+console.log(user);
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
@@ -134,7 +135,6 @@ function initMap() {
 	
 	const infoWindow = new google.maps.InfoWindow();
 
-
 	/*	getURL('users.json', function (data) {
 		var newUser = true;
 		var user = json.documentElement.getElementsByTagName('users');
@@ -155,7 +155,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});
+});*/
 
 
 	getURL('places.json', function (data) {
@@ -190,7 +190,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});*/
+	});
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
@@ -203,10 +203,9 @@ function initMap() {
 			<div style="margin: none;">
 			<h2>${name}</h2><p>${description}</p>
 			<p>${date}<br/><b>Time: </b> ${time}</p>
-			<p><img src="https://maps.googleapis.com/maps/api/streetview?size=350x120&location=${position.lat()},${position.lng()}&key=${apiKey}"></p>
 			<button onclick=addEvent(event.feature)>Add Calendar Event</button>
 			</div>
-			`;
+		`;
 		infoWindow.setContent(content);
 		infoWindow.setPosition(position);
 		infoWindow.setZIndex(9999);
@@ -432,7 +431,7 @@ async function CenterHome(controlElement, map, center, home) {
 	geojson.geometry = {type: _type, coordinates: _latlng};
 	_feature.id = _id;
 	geojson.features.push(_feature);
-}*/
+}
 
 function addrSearch(query) {
   var service = new google.maps.places.PlacesService(map);  
@@ -446,4 +445,4 @@ function addrSearch(query) {
       return result[0].toGeoJson();  
     }
   });
-}
+}*/
