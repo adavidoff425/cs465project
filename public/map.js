@@ -1,5 +1,5 @@
-const user = document.getElementById('map-data').getAttribute('data-user');
-console.log(user);
+//const user = document.getElementById('map-data').getAttribute('data-user');
+//console.log(user);
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
