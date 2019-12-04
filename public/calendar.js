@@ -83,7 +83,7 @@ function show(month, year) {
   let body = document.getElementById("calendar-body");
 
   // make sure everything is empty
-  body.innerHTML = "";
+  body.innerHTML = " ";
 
   //set the heading of calendar
   monthAndYear.innerHTML = months[month] + " " + year;
@@ -190,7 +190,7 @@ function show(month, year) {
   showEvent("work", 8, 16);
 }
 
-// getter to use calendar body in other scripts
+// getter to use calendar body in other script
 function showEvent(eventName, startTime, endTime) {
   Number.prototype.mod = function(a) {
     return ((this % a) + a) % a;
