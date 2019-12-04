@@ -1,15 +1,17 @@
 var req_data = {
     event_name: "anniversery",
-    username: "joe",
+    username: "alexdavidoff",
     category: "personal",
-    date: "2019-12-20",
-    time: "08:00:00"
+    date: "20/12/2019",
+    time: "8am",
+    adress: "123 abe lincoln street",
+    description: "an anniversary"
 
 }
 
 $.ajax({
     'type': 'post',
-    'url': '/test_insert_event',
+    'url': '/test_db',
     'dataType': 'json',
     'data': req_data,
     'success': function(data){
