@@ -1,40 +1,38 @@
-{	
-	"type" : "FeatureCollection",
-	"features": [{
-		"geometry": {
-			"type": "Point",
-			"coordinates": [
-				-122.6810424, 45.509023		
-			]
-		},
-		"type": "Feature",
-		"properties": {
-			"category": "school",
-			"time": "8am - 10am",
-			"description": "CS4/565",
-			"name": "Full Stack Web Development",
-			"date": "9/30/19-12/6/19",
-			"placeid": "01",
-      		"username": "alexdavidoff"
-		}
-	},
-	{
-		"geometry": {
-			"type": "Point",
-			"coordinates": [
-				-122.6106751, 45.5026962
-			]
-		},
-		"type": "Feature",
-		"properties": {
-			"category": "home",
-			"time": "",
-			"description": "Where i live",
-			"name": "HOME",
-			"date": "",
-			"placeid": "02",
-      		"username": "alexdavidoff"
-		}
-	}
-		]
+
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "school",
+        "time": "8am - 10am",
+        "description": "CS4/565",
+        "name": "Full Stack Web Development",
+        "date": "9/30/19-12/6/19",
+        "placeid": "01",
+        "username": "alexdavidoff"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6106751, 45.5026962]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "home",
+        "time": "",
+        "description": "Where i live",
+        "name": "HOME",
+        "date": "",
+        "placeid": "02",
+        "username": "alexdavidoff"
+      }
+    }
+  ]
 }
