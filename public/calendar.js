@@ -6,6 +6,7 @@ let yearSelected = document.getElementById("year");
 let monthSelected = document.getElementById("month");
 let body = document.getElementById("calendar-body"); // moved body to global variable
 let colorCount = 0;
+let iterator = 0;
 
 let months = [
   "January",
@@ -264,6 +265,7 @@ function showGrid() {
       var newDiv = document.createElement("div");
       newDiv.id = f + "-" + y;
       var gridAreaStart = f * 2 + y;
+
       newDiv.style.gridArea =
         gridAreaStart + "/" + "1" + "/" + (gridAreaStart + 1) + "/" + "4";
       newDiv.classList.add("daily-view-hour");
@@ -276,8 +278,6 @@ function showGrid() {
     }
   }
 }
-
-var iterator = 0;
 
 // getter to use calendar body in other scripts
 function showEvent(eventName, startTime, endTime) {
@@ -315,6 +315,7 @@ function showEvent(eventName, startTime, endTime) {
   //set span times
   startSpan = ++startTime * 2 + 1;
   endSpan = ++endTime * 2 + 1;
+  console.log(iterator);
   newEvent.style.gridArea =
     startSpan +
     " / " +
