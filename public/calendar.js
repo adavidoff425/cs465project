@@ -104,6 +104,21 @@ function jump() {
 }
 
 function show(month, year) {
+  console.log(dateSelected.getUTCDate());
+  $.ajax({
+    async: false,
+    type: "post",
+    url: "/test_db",
+    dataType: "json",
+    data: req_data,
+    success: function(data) {
+      events = data;
+    },
+    complete: function() {
+      console.log("complete");
+    }
+  });
+
   var currentDateSelected =
     dateSelected.getMonth() +
     1 +
@@ -190,21 +205,27 @@ function show(month, year) {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
           dateSelected.setFullYear(yearSelected.value);
+          console.log(dateSelected.toDateString());
           show(currentMonth, currentYear);
         };
 
         let iconCell = document.createElement("div");
         iconCell.id = date;
         iconCell.classList.add("calendar-cell-icon");
-        let eventsOnDate = getEventsDate(
-          currentMonth + 1 + "/" + date + "/" + currentYear
-        );
+        let getThisDate = currentMonth + 1 + "/" + date + "/" + currentYear;
+        let eventsOnDate = getEventsDate(getThisDate);
+
+        //console.log(getThisDate);
+        //console.log(eventsOnDate);
 
         //add the same onclick function for inner divs
         iconCell.onclick = function changeDateSelected() {
+          console.log(event.srcElement.id);
+
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
           dateSelected.setFullYear(yearSelected.value);
+          console.log("date: " + dateSelected.getUTCDate());
           show(currentMonth, currentYear);
         };
         numberCell.appendChild(cellText);
@@ -240,10 +261,9 @@ function show(month, year) {
     dateSelected.getMonth() +
     1 +
     "/" +
-    (dateSelected.getDay() + 1) +
+    dateSelected.getUTCDate() +
     "/" +
     dateSelected.getFullYear();
-
   let selectedEvents = getEventsDate(selectedDateShort);
 
   //show events for selected date
@@ -315,7 +335,6 @@ function showEvent(eventName, startTime, endTime) {
   //set span times
   startSpan = ++startTime * 2 + 1;
   endSpan = ++endTime * 2 + 1;
-  console.log(iterator);
   newEvent.style.gridArea =
     startSpan +
     " / " +
