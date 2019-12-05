@@ -21,9 +21,7 @@ router.post('/submit', function(req, res, next) {
 }, function(req, res, next, username) { // new user must enter home address
   var address = req.body.address;
   var query = address.split(' ').join('+');
-  //var result = addrSearch(query); // implemented in addrSearch.js
-  //console.log(result);
-    res.render('home', { user: username, home: query }); // pass new user and address query
+  res.render('home', { user: username, address: address, home: query }); // pass new user and address query
 });
 
 module.exports = router;

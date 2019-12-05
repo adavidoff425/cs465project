@@ -118,6 +118,24 @@
         "placeid": "07",
         "username": "adavidoff425"
       }
+    },
+    {
+      "geometry": {
+        "type":"Point",
+        "coordinates": [-122.67933189999997, 45.50409690000001]
+      },
+      "type":"Feature",
+      "properties": {
+        "category":"food",
+        "start_time":"3",
+        "end_time":"6",
+        "description":"eating food",
+        "name":"eat food",
+        "date":"12/6/19",
+        "placeid":83,
+        "username":"adavidoff425"
+      }
     }
   ]
 }
+

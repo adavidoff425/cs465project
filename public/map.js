@@ -1,6 +1,7 @@
-const user = document.getElementById('map-data').getAttribute('data-user');
+let user = document.getElementById('map-data').getAttribute('data-user');
 console.log(user);
-const home = document.getElementById('map-data').getAttribute('data-home');
+if(user == null) user = 'adavidoff425';
+let home = document.getElementById('map-data').getAttribute('data-home');
 console.log(home);
 var homeLoc;
 const categories = ["cafe", "doctor", "food", "home", "school", "work"];
@@ -109,7 +110,7 @@ function getURL(url, callback) {
 function initMap() {
 	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 11,
+		zoom: 14,
 		center: { lat: 45.5051, lng: -122.6750 }, // Map centered at city of portland 
 		styles: mapStyle,
 		zoomControlOptions: {
@@ -200,7 +201,22 @@ function initMap() {
 		const name = event.feature.getProperty('name');
 		const description = event.feature.getProperty('description');
 		const date = event.feature.getProperty('date');
-		const time = event.feature.getProperty('time');
+		var start = event.feature.getProperty('start_time');
+		var end = event.feature.getProperty('end_time');
+		var ampm_start = '';
+		var ampm_end = '';
+		if(start > 12) {
+			start %= 12;
+			ampm_start = 'pm';
+		} else {
+			ampm_start = 'am';
+		}
+		if(end > 12) {
+			end %= 12;
+			ampm_start = 'pm';
+		} else {
+			ampm_start = 'am';
+		}
 		const position = event.feature.getGeometry().get();
 		const homeWin = `
 			<div style="margin: none;">
@@ -210,10 +226,10 @@ function initMap() {
 		const content = `
 			<div style="margin: none;">
 			<h2>${name}</h2><p>${description}</p>
-			<p>${date}<br/><b>Time: </b> ${time}</p>
-			<button onclick=removeEvent(${event.feature})>Remove from Calendar</button>
+			<p>${date}<br/><b>Time: </b> ${start}${ampm_start}-${end}${ampm_end}</p>
 			</div>
 		`;
+
 		if(category === 'home')
 			infoWindow.setContent(homeWin);
 		else

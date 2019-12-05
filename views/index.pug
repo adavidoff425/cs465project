@@ -1,9 +1,10 @@
 doctype html
 head
   title User Login
-  link(rel='stylesheet' type='text/css' href='style.css')
+  link(rel='stylesheet' type='text/css' href='styles/style.css')
+
 .form
-  form(action='/submit' method='post')
+  form(action='/submit' method='post' id='landing')
     p
       input#username(type='text' placeholder='Enter Username:' name='username')
     p

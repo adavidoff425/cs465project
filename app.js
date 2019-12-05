@@ -19,7 +19,10 @@ app.set("view engine", "pug");
 
 app.use("/", landing);
 app.use("/home", home);
-
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 app.get("/", function(req, res, next) {
   res.render("index");
 });
@@ -79,10 +82,10 @@ app.post("/addevent", (req, res) => {
   let req_time_start = req.body.startTime;
   let req_time_end = req.body.endTime;
   let req_coord = [];
-  req_coord.push(req.body.lat);
   req_coord.push(req.body.lng);
+  req_coord.push(req.body.lat);
 
-  let new_db_item = {
+  const new_db_item = {
     geometry: {
       type: "Point",
       coordinates: req_coord
@@ -95,7 +98,7 @@ app.post("/addevent", (req, res) => {
       description: req_event_desc,
       name: req_event_name,
       date: req_date,
-      placeid: "10",
+      placeid: Math.ceil(Math.random()*100),
       username: req_username
     }
   };
@@ -115,7 +118,7 @@ app.post("/addevent", (req, res) => {
     });
     res.end();
   });
-  res.render('calendar');
+  res.render("calendar", { user: req.body.username });
 });
 
 app.post("/test_db_insert", (req, res) => {

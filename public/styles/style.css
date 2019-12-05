@@ -42,7 +42,7 @@ textarea {
 	margin-bottom: 15px;
 }
 
-.nav-links {
+.nav-links, #landing {
 	margin: 10% 25%;
 	background: rgba(47, 141, 67, 0.6);
 	padding: 1.5rem 0;
@@ -70,7 +70,7 @@ form > p {
 	justify-content: center;
 }
 
-.nav-links a {
+.nav-links a, #landing button {
 	background-color: rgb(14, 61, 136, 0.9);
 	color: oldlace;
 	text-transform: uppercase;
@@ -98,6 +98,11 @@ input[type=text] {
 	border: 2px outset cadetblue;
 	padding: 5px;
 	background: rgba(118,202,176,0.5);
+}
+
+input#address, input#username {
+	background: oldlace;
+	color: rgb(25, 104, 25);
 }
 
 #map {
@@ -171,6 +176,7 @@ html, body {
 .hidden {
 	display: none;
 }
+
 
 /* Styling for an info pane that slides out from the left. 
  * Hidden by default. */
