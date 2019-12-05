@@ -2,11 +2,26 @@ doctype html
 head
   title User Calendar
   link(rel='stylesheet' type='text/css' href='styles/style.css')
-.nav-links
-  a(href='/') Sign Out
-  a(href='/calendar') View Calendar
-#map
-script(type='text/javascript' id='cal-data' data-user=user data-home=home src='calendar.js')
-script(type='text/javascript' id='map-data' data-user=user data-home=home src='map.js')
+  link(rel='stylesheet' type='text/css' href='styles/template.css')
+.site-header
+  .header-name
+    h2 Map Calendar
+  .header-links
+    a(href='/home')
+      .link-wrapper
+        | Map
+    a(href='/calendar')
+      .link-wrapper
+        | Calendar
+.site-body
+  .left-sidebar
+  .page-content
+    .nav-links
+      a(href='/') Sign Out
+      a(href='/calendar') View Calendar
+    #map
+  .right-sidebar
+script(type='text/javascript' id='cal-data' data-user=user data-home=address src='calendar.js')
+script(type='text/javascript' id='map-data' data-user=user data-home=address src='map.js')
 script(async='' defer='' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0&libraries=places&callback=initMap')
 

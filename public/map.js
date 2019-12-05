@@ -1,5 +1,7 @@
 const user = document.getElementById('map-data').getAttribute('data-user');
 console.log(user);
+const home = document.getElementById('map-data').getAttribute('data-home');
+console.log(home);
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
@@ -102,7 +104,6 @@ function getURL(url, callback) {
 	req.send(null);
 }
 
-
 function initMap() {
 	//const username = document.getElementById('user').value; // or calendar.user???
 	const map = new google.maps.Map(document.getElementById('map'), {
@@ -126,10 +127,10 @@ function initMap() {
 		}
 		return {	
 			icon: {
-        		//visible: feature.getProperty('username') === username, /// set to true if username of place matches
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
-			}
+			},
+			visible: `${feature.getProperty('username')}` == "alexdavidoff"
 		};
 	});
 	
@@ -155,7 +156,7 @@ function initMap() {
 		label: icon.label,
 		shape: circle,
 	});
-});*/
+})
 
 
 	getURL('places.json', function (data) {
@@ -190,7 +191,7 @@ function initMap() {
 				map.setCenter(marker.getPosition());
 			});
 		});
-	});
+	});*/
 
 	map.data.addListener('click', (event) => {
 		const category = event.feature.getProperty('category');
@@ -263,13 +264,32 @@ function initMap() {
 		}
 
 		// Recenter the map to selected address
-		originLocation = place.geometry.location;
-		map.setCenter(originLocation);
+		originLocation = place.geometry;
+		var latitude = originLocation.location.lat();
+		var longitude = originLocation.location.lng();
+		var latlng = new google.maps.LatLng({ lat: latitude, lng: longitude});
+		map.setCenter(latlng);
 		map.setZoom(11);
-		console.log(place);
 
-		originMarker.setPosition(originLocation);
+		originMarker.setPosition(latlng);
 		originMarker.setVisible(true);
+
+		const infoWin = new google.maps.InfoWindow();
+
+		originMarker.addListener('click', (event) => {
+				const content = `
+					<button onclick=addEvent(event.feature)>Add Calendar Event</button>
+				`;
+				infoWindow.setContent(content);
+				infoWindow.setPosition(originMarker.position);
+				infoWindow.setZIndex(9999);
+				infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
+				map.setCenter(originMarker.position);
+				infoWindow.open(map);
+				map.addListener('click', () => {
+					infoWindow.close(map);
+				});
+		});
 
 		const eventsList = await calculateDistances(map.data, originLocation);
 		showEventsList(map.data, eventsList);
@@ -366,6 +386,7 @@ function showEventsList(data, places) {
 		// Add place details with text formatting
 		const name = document.createElement('p');
 		name.classList.add('place');
+		console.log(place);
 		const currentPlace = data.getFeatureById(place.placeid);
 		name.textContent = currentPlace.getProperty('name');
 		panel.appendChild(name);
@@ -431,7 +452,7 @@ async function CenterHome(controlElement, map, center, home) {
 	geojson.geometry = {type: _type, coordinates: _latlng};
 	_feature.id = _id;
 	geojson.features.push(_feature);
-}
+}*/
 
 function addrSearch(query) {
   var service = new google.maps.places.PlacesService(map);  
@@ -442,7 +463,8 @@ function addrSearch(query) {
 
   service.findPlaceFromQuery(search, function(result, status) {
     if (status === google.maps.place.PlacesServiceStatus.OK) {
+	  console.log(result[0]);
       return result[0].toGeoJson();  
     }
   });
-}*/
+}
