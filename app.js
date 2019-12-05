@@ -23,6 +23,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+
 app.get("/", function(req, res, next) {
   res.render("index");
 });
@@ -37,7 +38,7 @@ app.get("/home", function(req, res) {
 
 app.post("/test_db", (req, res) => {
   //console.log("here");
-  fs.readFile("./db.json", "utf8", (err, jsonString) => {
+  fs.readFile("./public/places.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("File read failed:", err);
       return;
@@ -65,7 +66,7 @@ app.post("/test_db", (req, res) => {
 });
 
 app.post("/addevent", (req, res) => {
-  fs.readFile("./db.json", "utf8", (err, jsonString) => {
+  fs.readFile("./public/places.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("File read failed:", err);
       res.end();
@@ -82,26 +83,26 @@ app.post("/addevent", (req, res) => {
   let req_time_start = req.body.startTime;
   let req_time_end = req.body.endTime;
   let req_coord = [];
-  req_coord.push(req.body.lng);
-  req_coord.push(req.body.lat);
+  req_coord.push(parseFloat(req.body.lng));
+  req_coord.push(parseFloat(req.body.lat));
 
   const new_db_item = {
-    geometry: {
-      type: "Point",
-      coordinates: req_coord
-    },
-    type: "Feature",
-    properties: {
-      category: req_category,
-      start_time: req_time_start,
-      end_time: req_time_end,
-      description: req_event_desc,
-      name: req_event_name,
-      date: req_date,
-      placeid: Math.ceil(Math.random()*100),
-      username: req_username
-    }
-  };
+      "geometry": {
+        "type":"Point",
+        "coordinates": req_coord
+      },
+      "type":"Feature",
+      "properties": {
+        "category": req_category,
+        "start_time": req_time_start,
+        "end_time": req_time_end,
+        "description": req_event_desc,
+        "name": req_event_name,
+        "date": req_date,
+        "placeid": Math.ceil(Math.random()*100),
+        "username": req_username
+      }
+    };
 
   db_json_all["features"].push(new_db_item);
 
@@ -109,7 +110,7 @@ app.post("/addevent", (req, res) => {
     console.log(db_json_all["features"]);
 
     let new_json_string = JSON.stringify(db_json_all);
-    fs.writeFile("./db.json", new_json_string, err => {
+    fs.writeFile("./public/places.json", new_json_string, err => {
       if (err) {
         console.log(err);
       } else {
