@@ -2,6 +2,8 @@ const user = document.getElementById('map-data').getAttribute('data-user');
 console.log(user);
 const home = document.getElementById('map-data').getAttribute('data-home');
 console.log(home);
+var homeLoc;
+const categories = ["cafe", "doctor", "food", "home", "school", "work"];
 
 const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const mapStyle = [{
@@ -123,14 +125,14 @@ function initMap() {
 		if(`${feature.getProperty('category')}` == 'home') {
 		    var lat = parseFloat(`${feature.getGeometry().get().lat()}`); 
 			var lng = parseFloat(`${feature.getGeometry().get().lng()}`);
-			const home = '['+lat+','+lng+']';
+			homeLoc = new google.maps.LatLng({ lat: lat, lng: lng });
 		}
 		return {	
 			icon: {
 				url: img,
 				scaledSize: new google.maps.Size(48, 48),
 			},
-			visible: `${feature.getProperty('username')}` == "alexdavidoff"
+			visible: `${feature.getProperty('username')}` == user,
 		};
 	});
 	
@@ -200,14 +202,22 @@ function initMap() {
 		const date = event.feature.getProperty('date');
 		const time = event.feature.getProperty('time');
 		const position = event.feature.getGeometry().get();
+		const homeWin = `
+			<div style="margin: none;">
+			<h2>${name}</h2><p>${description}</p>
+			</div>
+		`;
 		const content = `
 			<div style="margin: none;">
 			<h2>${name}</h2><p>${description}</p>
 			<p>${date}<br/><b>Time: </b> ${time}</p>
-			<button onclick=addEvent(event.feature)>Add Calendar Event</button>
+			<button onclick=removeEvent(${event.feature})>Remove from Calendar</button>
 			</div>
 		`;
-		infoWindow.setContent(content);
+		if(category === 'home')
+			infoWindow.setContent(homeWin);
+		else
+			infoWindow.setContent(content);
 		infoWindow.setPosition(position);
 		infoWindow.setZIndex(9999);
 		infoWindow.setOptions({pixelOffset: new google.maps.Size(0, -30)});
@@ -241,7 +251,7 @@ function initMap() {
 	container.appendChild(input);
 	card.appendChild(titleBar);
 	card.appendChild(container);
-	CenterHome(card, map, map.getCenter(), home);
+	CenterHome(card, map, map.getCenter(), homeLoc);
 	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
 	const autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -269,17 +279,34 @@ function initMap() {
 		var longitude = originLocation.location.lng();
 		var latlng = new google.maps.LatLng({ lat: latitude, lng: longitude});
 		map.setCenter(latlng);
-		map.setZoom(11);
+		map.setZoom(15);
 
 		originMarker.setPosition(latlng);
 		originMarker.setVisible(true);
 
-		const infoWin = new google.maps.InfoWindow();
-
 		originMarker.addListener('click', (event) => {
+				console.log(place);
+				
 				const content = `
-					<button onclick=addEvent(event.feature)>Add Calendar Event</button>
+					<div>
+					<h2>${place.name}</h2>
+					<p>Add a Calendar Event</p>
+					</div>
+					<div id=addEvent-form>
+									<form action='/addevent' method='post'>
+										<input type='text' placeholder='Event Category' name=category>
+										<input type='text' placeholder='Event Name' name=event_name>
+										<input type='text' placeholder='Description' name=description>
+										<input type='text' placeholder='Date' name=date>
+										<input type='text' placeholder='Event Start' name=startTime>
+										<input type='text' placeholder='Event End' name=endTime>
+										<input type='text' name=lat value=${place.geometry.location.lat()}>
+										<input type='text' name=lng value=${place.geometry.location.lng()}>
+										<input type='text' name=req_username value=${user}>
+										<p><button type='submit' name='enter'>Enter</button></p>
+									</div>
 				`;
+		
 				infoWindow.setContent(content);
 				infoWindow.setPosition(originMarker.position);
 				infoWindow.setZIndex(9999);
@@ -289,7 +316,7 @@ function initMap() {
 				map.addListener('click', () => {
 					infoWindow.close(map);
 				});
-		});
+			});
 
 		const eventsList = await calculateDistances(map.data, originLocation);
 		showEventsList(map.data, eventsList);
@@ -297,6 +324,8 @@ function initMap() {
 		return;
 	});
 }
+
+
 
 async function calculateDistances(data, origin) {
 	const places = [];
@@ -417,24 +446,8 @@ async function CenterHome(controlElement, map, center, home) {
 	homeText.innerHTML = 'Center Map at Home';
 	centerHome.appendChild(homeText);
 
-	const setCenter = document.createElement('button');
-	setCenter.id = 'setCenter';
-	setCenter.title = 'Click to change center';
-	controlElement.appendChild(setCenter);
-
-	const centerText = document.createElement('div');
-	centerText.id = 'centerText';
-	centerText.innerHTML = 'Set Center';
-	setCenter.appendChild(centerText);
-
 	centerHome.addEventListener('click', function() {
-		map.setCenter(home);
-	});
-
-	setCenter.addEventListener('click', function() {
-		var current = control.center_;
-		console.log(home);
-		//map.setCenter(current);
+		map.setCenter(homeLoc);
 	});
 
 	return;
@@ -464,7 +477,7 @@ function addrSearch(query) {
   service.findPlaceFromQuery(search, function(result, status) {
     if (status === google.maps.place.PlacesServiceStatus.OK) {
 	  console.log(result[0]);
-      return result[0].toGeoJson();  
+      return result[0];  
     }
   });
 }
