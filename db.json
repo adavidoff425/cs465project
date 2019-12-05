@@ -1,125 +1,123 @@
 {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.6810424,
-                    45.509023
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "school",
-                "start_time": "8",
-                "end_time": "13",
-                "description": "CS4/565",
-                "name": "Full Stack Web Development",
-                "date": "12/5/19",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.678947,
-                    45.510960
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "home",
-                "time": "",
-                "description": "Where i live",
-                "name": "HOME",
-                "date": "",
-                "placeid": "02",
-                "username": "adavidoff425"
-            }
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.682701,
-                    45.515682
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "personal",
-                "start_time": "12",
-                "end_time": "15",
-                "description": "bread",
-                "name": "grocieries",
-                "date": "12/5/19",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.675581,
-                    45.515201
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "personal",
-                "start_time": "9",
-                "end_time": "10",
-                "description": "an anniversary",
-                "name": "anniversery",
-                "date": "12/5/2019",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.6810424,
-                    45.509023
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "school",
-                "start_time": "9",
-                "end_time": "10",
-                "description": "CS",
-                "name": "Class",
-                "date": "12/6/2019",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-            
-        },
-        {
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -122.678947,
-                    45.510960
-                ]
-            },
-            "type": "Feature",
-            "properties": {
-                "category": "work",
-                "start_time": "16",
-                "end_time": "20",
-                "description": "food",
-                "name": "work party",
-                "date": "12/6/2019",
-                "placeid": "01",
-                "username": "adavidoff425"
-            }
-        }
-    ]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "school",
+        "start_time": "8",
+        "end_time": "13",
+        "description": "CS4/565",
+        "name": "Full Stack Web Development",
+        "date": "12/5/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6106751, 45.5026962]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "home",
+        "time": "",
+        "description": "Where i live",
+        "name": "HOME",
+        "date": "",
+        "placeid": "02",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "personal",
+        "start_time": "12",
+        "end_time": "15",
+        "description": "bread",
+        "name": "grocieries",
+        "date": "12/5/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "personal",
+        "start_time": "9",
+        "end_time": "10",
+        "description": "an anniversary",
+        "name": "anniversery",
+        "date": "12/5/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "school",
+        "start_time": "9",
+        "end_time": "10",
+        "description": "CS",
+        "name": "Class",
+        "date": "12/6/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "school",
+        "start_time": "9",
+        "end_time": "10",
+        "description": "CS",
+        "name": "Class",
+        "date": "12/6/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6810424, 45.509023]
+      },
+      "type": "Feature",
+      "properties": {
+        "category": "work",
+        "start_time": "16",
+        "end_time": "20",
+        "description": "food",
+        "name": "work party",
+        "date": "12/6/2019",
+        "placeid": "01",
+        "username": "adavidoff425"
+      }
+    }
+  ]
 }

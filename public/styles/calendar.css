@@ -237,6 +237,7 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-hourly {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(48, 30px);
@@ -287,7 +288,7 @@ button[class="movement_buttons"] {
 }
 
 .daily-view-hour[id="0-2"] {
-  grid-area: 2 / 1 / 3 / 4;
+  grid-area: 2 / 1 / 3 / 4;T
 }
 
 .daily-view-hour[id="1-1"] {
@@ -475,6 +476,11 @@ button[class="movement_buttons"] {
 }
 
 .event {
-  padding: 10px;
+  padding: 0px;
   border-radius: 3px;
+  width: 100%;
+}
+
+.event-wrapper {
+  padding: 10px;
 }

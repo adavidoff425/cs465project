@@ -24,7 +24,7 @@ let months = [
 
 let monthAndYear = document.getElementById("month-and-year");
 let dailyViewDate = document.getElementById("daily-view-date");
-let events = undefined;
+var events = null;
 
 var req_data = {
   event_name: "anniversery",
@@ -37,6 +37,7 @@ var req_data = {
 };
 
 $.ajax({
+  async: false,
   type: "post",
   url: "/test_db",
   dataType: "json",
@@ -50,6 +51,18 @@ $.ajax({
   }
 });
 
+function getEventsDate(date) {
+  var dateEvents = [];
+  for (var i = 0; i < events.length; i++) {
+    var event = events[i];
+    if (event.properties.date === date) {
+      dateEvents.push(event);
+    }
+  }
+  return dateEvents;
+}
+
+//render the page
 show(currentMonth, currentYear);
 
 //go to next month
@@ -66,10 +79,6 @@ function base() {
   currentMonth = today.getMonth();
   currentYear = today.getFullYear();
   show(currentMonth, currentYear);
-}
-
-function changeDateSelected() {
-  alert(event.srcElement.value);
 }
 
 //help with negative mod
@@ -94,14 +103,18 @@ function jump() {
   show(currentMonth, currentYear);
 }
 
-var json =
-  '{ "type": "FeatureCollection", "features": [ { "geometry": { "type": "Point", "coordinates": "[-122.6810424, 45.509023]" }, "type": "Feature", "properties": { "category": "school", "time": "8am - 10am", "description": "CS4/565", "name": "Full Stack Web Development", "date": "9/30/19-12/6/19", "placeid": "01", "username": "alexdavidoff" } } ] }';
-var obj = JSON.parse(json);
-
-var features = obj.features[0];
-console.log(obj.length);
-
 function show(month, year) {
+  var currentDateSelected =
+    dateSelected.getMonth() +
+    1 +
+    "/" +
+    dateSelected.getDate() +
+    "/" +
+    dateSelected.getFullYear();
+
+  console.log("Checking: " + currentDateSelected);
+  getEventsDate(currentDateSelected);
+
   //console.log(month + " " + year);
   let firstDay = new Date(year, month).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
@@ -159,7 +172,7 @@ function show(month, year) {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
           dateSelected.setFullYear(yearSelected.value);
-          show(currentMonth, currentYear);
+          //show(currentMonth, currentYear);
         };
 
         //add classes for cell
@@ -173,6 +186,7 @@ function show(month, year) {
         let numberCell = document.createElement("div");
         numberCell.id = date;
         numberCell.classList.add("calendar-cell-date");
+
         //add the same onclick function for inner divs
         numberCell.onclick = function changeDateSelected() {
           dateSelected.setDate(event.srcElement.id);
@@ -180,9 +194,14 @@ function show(month, year) {
           dateSelected.setFullYear(yearSelected.value);
           show(currentMonth, currentYear);
         };
+
         let iconCell = document.createElement("div");
         iconCell.id = date;
         iconCell.classList.add("calendar-cell-icon");
+        let eventsOnDate = getEventsDate(
+          currentMonth + 1 + "/" + date + "/" + currentYear
+        );
+
         //add the same onclick function for inner divs
         iconCell.onclick = function changeDateSelected() {
           dateSelected.setDate(event.srcElement.id);
@@ -196,7 +215,10 @@ function show(month, year) {
 
         let icon = document.createElement("div");
         icon.classList.add("calendar-date-icon");
-        iconCell.appendChild(icon);
+
+        if (eventsOnDate.length > 0) {
+          iconCell.appendChild(icon);
+        }
 
         if (
           date === dateSelected.getDate() &&
@@ -212,9 +234,57 @@ function show(month, year) {
     }
     body.appendChild(row); // appending each row into calendar body.
   }
-  //show the events
-  showEvent("work", 8, 16);
+
+  //now show the grid
+  showGrid();
+
+  let selectedDateShort =
+    dateSelected.getMonth() +
+    1 +
+    "/" +
+    (dateSelected.getDay() + 1) +
+    "/" +
+    dateSelected.getFullYear();
+
+  let selectedEvents = getEventsDate(selectedDateShort);
+
+  //show events for selected date
+  for (var j = 0; j < selectedEvents.length; j++) {
+    var e = selectedEvents[j];
+    showEvent(
+      e.properties.name,
+      e.properties.start_time,
+      e.properties.end_time
+    );
+  }
 }
+
+function showGrid() {
+  console.log("here");
+  var parent = document.getElementById("daily-view-grid");
+  parent.innerHTML = "";
+  for (var f = 0; f < 24; f++) {
+    for (var y = 1; y < 3; y++) {
+      console.log("inside");
+      var newDiv = document.createElement("div");
+      newDiv.id = f + "-" + y;
+      var gridAreaStart = f * 2 + y;
+      newDiv.style.gridArea =
+        gridAreaStart + "/" + "1" + "/" + (gridAreaStart + 1) + "/" + "4";
+      console.log("area: " + newDiv.style.gridArea);
+      newDiv.classList.add("daily-view-hour");
+      if (y === 1) {
+        newDiv.classList.add("first");
+      } else {
+        newDiv.classList.add("second");
+      }
+      console.log("appending");
+      parent.appendChild(newDiv);
+    }
+  }
+}
+
+var iterator = 0;
 
 // getter to use calendar body in other scripts
 function showEvent(eventName, startTime, endTime) {
@@ -233,23 +303,35 @@ function showEvent(eventName, startTime, endTime) {
   //grab the grid
   var dailyViewGrid = document.getElementById("daily-view-grid");
   //create div for event
-  var event = document.createElement("div");
-  //add class for div
-  event.classList.add(events);
+  var newEvent = document.createElement("div");
   //create text node for event
   var eventText = document.createTextNode(eventName + " " + colorCount);
-  //add text to event
-  event.appendChild(eventText);
+  //add class for div
+  newEvent.classList.add("event");
+  //create wrapper for text
+  var eventWrapper = document.createElement("div");
+  eventWrapper.classList.add("event-wrapper");
+  eventWrapper.appendChild(eventText);
+  newEvent.appendChild(eventWrapper);
 
   //cycle the color
   colorCount = (colorCount + 1).mod(eventColors.length);
   //set color
-  event.style.background = eventColors[colorCount];
-  event.style.opacity = 0.7;
+  newEvent.style.background = eventColors[colorCount];
+  newEvent.style.opacity = 0.7;
   //set span times
   startSpan = ++startTime * 2 + 1;
   endSpan = ++endTime * 2 + 1;
-  event.style.gridArea = startSpan + " / 1 / " + endSpan + " / 2";
+  newEvent.style.gridArea =
+    startSpan +
+    " / " +
+    (iterator + 1) +
+    " / " +
+    endSpan +
+    " / " +
+    (iterator + 2);
+  iterator = (iterator + 1).mod(3);
+  console.log(iterator);
   //append to daily-grid
-  dailyViewGrid.appendChild(event);
+  dailyViewGrid.appendChild(newEvent);
 }
