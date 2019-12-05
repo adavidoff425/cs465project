@@ -42,7 +42,7 @@ textarea {
 	margin-bottom: 15px;
 }
 
-.nav-links {
+.nav-links, #pac-card > button {
 	margin: 10% 25%;
 	background: rgba(65, 195, 94, 0.6);
 	padding: 1.5rem 0;
@@ -51,6 +51,7 @@ textarea {
 	text-align: center;
 	color: rgb(1, 10, 49);
 }
+
 form {
 	font-weight: bold;
 	align-content: center;
@@ -128,7 +129,7 @@ html, body {
 	margin-right: 12px;
 }
 
-#pac-input {
+#pac-input, button {
 	background-color: #fff;
 	font-family: Roboto;
 	font-size: 15px;
@@ -189,3 +190,12 @@ html, body {
 		padding-left: 18px;
 		padding-right: 18px;
 	}
+
+.gm-style-iw {
+	background-color: rgb(25, 104, 25);
+	color: rgb(3, 3, 37);
+	box-shadow: 0 5px 3px rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+	text-align: center;
+	border: 2px solid white;
+}
