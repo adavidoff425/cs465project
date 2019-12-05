@@ -43,7 +43,6 @@ $.ajax({
   dataType: "json",
   data: req_data,
   success: function(data) {
-    console.log(data);
     events = data;
   },
   complete: function() {
@@ -112,10 +111,8 @@ function show(month, year) {
     "/" +
     dateSelected.getFullYear();
 
-  console.log("Checking: " + currentDateSelected);
   getEventsDate(currentDateSelected);
 
-  //console.log(month + " " + year);
   let firstDay = new Date(year, month).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
@@ -260,25 +257,21 @@ function show(month, year) {
 }
 
 function showGrid() {
-  console.log("here");
   var parent = document.getElementById("daily-view-grid");
   parent.innerHTML = "";
   for (var f = 0; f < 24; f++) {
     for (var y = 1; y < 3; y++) {
-      console.log("inside");
       var newDiv = document.createElement("div");
       newDiv.id = f + "-" + y;
       var gridAreaStart = f * 2 + y;
       newDiv.style.gridArea =
         gridAreaStart + "/" + "1" + "/" + (gridAreaStart + 1) + "/" + "4";
-      console.log("area: " + newDiv.style.gridArea);
       newDiv.classList.add("daily-view-hour");
       if (y === 1) {
         newDiv.classList.add("first");
       } else {
         newDiv.classList.add("second");
       }
-      console.log("appending");
       parent.appendChild(newDiv);
     }
   }
@@ -331,7 +324,6 @@ function showEvent(eventName, startTime, endTime) {
     " / " +
     (iterator + 2);
   iterator = (iterator + 1).mod(3);
-  console.log(iterator);
   //append to daily-grid
   dailyViewGrid.appendChild(newEvent);
 }
