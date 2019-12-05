@@ -196,7 +196,7 @@ server.post('/test_db_insert', (req, res) =>{
         let req_event_desc = req.body.description;
         let req_category = req.body.category;
         let req_date = req.body.date;
-        let req_time = req.body.time;
+        let req_start_time = req.body.start_time;
 
         let coord = [-122.6810424, 45.509023]
 
@@ -211,7 +211,8 @@ server.post('/test_db_insert', (req, res) =>{
             "type": "Feature",
             "properties": {
                 "category": req_category,
-                "time": req_time,
+                "start_time": req_start_time,
+                "end_time": req_end_time,
                 "description": req_event_desc,
                 "name": req_event_name,
                 "date": req_date,
