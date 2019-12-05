@@ -32,7 +32,7 @@ var req_data = {
   category: "personal",
   date: "20/12/2019",
   time: "8am",
-  adress: "123 abe lincoln street",
+  address: "123 abe lincoln street",
   description: "an anniversary"
 };
 

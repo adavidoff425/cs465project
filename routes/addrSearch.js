@@ -3,7 +3,7 @@ const apiKey = 'AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0';
 const https = require('https');
 let result = [];
 let callBack = function(data) {
-  result.push(...data);
+  result.push(data);
   return result;
 }
 
@@ -16,7 +16,7 @@ const getData = function (url, callback) {
 
     res.on('end', function () {
       if(JSON.parse(body).results !== null){
-        callBack(JSON.parse(body));
+        callBack(JSON.parse(body).results[0]);
       }
     });
   });

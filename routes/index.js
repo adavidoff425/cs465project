@@ -15,7 +15,7 @@ router.post('/submit', function(req, res, next) {
   var address = req.body.address;
   const query = address.split(' ').join('+');
   if(isUser(username)) 
-    res.render('home', { user: username, address: query });
+    res.render('home', { user: username, address: address, query: query });
   else
     return next();
 }, function(req, res, next, username) { // new user must enter home address

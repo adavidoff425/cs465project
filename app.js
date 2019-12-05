@@ -61,6 +61,63 @@ app.post("/test_db", (req, res) => {
   // res.end()
 });
 
+app.post("/addevent", (req, res) => {
+  fs.readFile("./db.json", "utf8", (err, jsonString) => {
+    if (err) {
+      console.log("File read failed:", err);
+      res.end();
+      return;
+    }
+
+  let db_json_all = JSON.parse(jsonString);
+
+  let req_username = req.body.req_username;
+  let req_event_name = req.body.event_name;
+  let req_event_desc = req.body.description;
+  let req_category = req.body.category;
+  let req_date = req.body.date;
+  let req_time_start = req.body.startTime;
+  let req_time_end = req.body.endTime;
+  let req_coord = [];
+  req_coord.push(req.body.lat);
+  req_coord.push(req.body.lng);
+
+  let new_db_item = {
+    geometry: {
+      type: "Point",
+      coordinates: req_coord
+    },
+    type: "Feature",
+    properties: {
+      category: req_category,
+      start_time: req_time_start,
+      end_time: req_time_end,
+      description: req_event_desc,
+      name: req_event_name,
+      date: req_date,
+      placeid: "10",
+      username: req_username
+    }
+  };
+
+  db_json_all["features"].push(new_db_item);
+
+    console.log(+db_json_all);
+    console.log(db_json_all["features"]);
+
+    let new_json_string = JSON.stringify(db_json_all);
+    fs.writeFile("./db.json", new_json_string, err => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("write successful");
+      }
+    });
+    res.end();
+  });
+  res.render('calendar');
+});
+
 app.post("/test_db_insert", (req, res) => {
   fs.readFile("./db.json", "utf8", (err, jsonString) => {
     if (err) {
@@ -75,15 +132,14 @@ app.post("/test_db_insert", (req, res) => {
     let req_category = req.body.category;
     let req_date = req.body.date;
     let req_time = req.body.time;
-
-    let coord = [-122.6810424, 45.509023];
+    let req_coord = req.body.coords;
 
     let db_json_all = JSON.parse(jsonString);
 
     let new_db_item = {
       geometry: {
         type: "Point",
-        coordinates: coord
+        coordinates: req_coord
       },
       type: "Feature",
       properties: {
