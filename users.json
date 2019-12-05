@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "userid": 1,
+            "name": "adavidoff425",
+            "home": {
+                "coordinates": [
+                    -122.6810424,
+                    45.509023
+                ]
+            }
+        },
+        {
+            "userid": 2,
+            "name": "ad35",
+            "home": {
+                "coordinates": [
+                    -122.6810424,
+                    45.509023
+                ]
+            }
+        },
+        {
+            "userid": 1,
+            "name": "bob",
+            "home": {
+                "coordinates": [
+                    "-122.6810424",
+                    "45.509023"
+                ]
+            }
+        }
+    ]
+}
