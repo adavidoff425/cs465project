@@ -29,6 +29,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/submit', function(req, res, next) {
   const username = req.body.username; 
+  req.app.locals.user = username;
   const userSearch = isUser(username);
   if(userSearch != null) {
     res.render('home', { user: username, address: userSearch.home.address, lnglat: userSearch.home.coordinates });

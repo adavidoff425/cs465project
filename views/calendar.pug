@@ -136,4 +136,6 @@ head
                 #daily-view-grid.daily-view-hourly
   .right-sidebar
 script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
-script(type='text/javascript' id='cal-data' data-user=user src='./calendar.js')
+script(type='text/javascript' id='cal-data' data-user=user data-home=address data-coords=lnglat src='calendar.js')
+script(type='text/javascript' id='map-data' data-user=user data-home=address data-coords=lnglat src='map.js')
+script(type='text/javascript' data-user=user data-home=address data-coords=lnglat src='app.js')

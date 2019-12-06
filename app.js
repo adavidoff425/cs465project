@@ -6,6 +6,8 @@ var path = require("path");
 var landing = require("./routes/index");
 var home = require("./routes/home");
 const fs = require("fs");
+const isUser = require("./routes/users");
+
 //var editRouter = require('./routes/edit');
 //var async = require('asyncawait/async');
 //var await = require('asyncawait/await');
@@ -19,21 +21,26 @@ app.set("view engine", "pug");
 
 app.use("/", landing);
 app.use("/home", home);
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
 
 app.get("/", function(req, res, next) {
+  req.app.locals.user = null; // when sign out page is reached no current global user
   res.render("index");
 });
 
 app.get("/calendar", function(req, res) {
-  res.render("calendar");
+  if(app.locals.user != null) {
+    const user = isUser(app.locals.user);
+    res.render("calendar", { user: app.locals.user, address: user.home.address, lnglat: user.home.coordinates });
+  } else
+    res.render("index", { title: 'Sign in to view calendar' });
 });
 
 app.get("/home", function(req, res) {
-  res.render("home");
+  if(app.locals.user != null) {
+    const user = isUser(app.locals.user);
+    res.render("home", { user: app.locals.user, address: user.home.address, lnglat: user.home.coordinates });
+  } else
+    res.render("index", { title: 'Sign in to view map' });
 });
 
 app.post("/test_db", (req, res) => {
