@@ -1,20 +1,16 @@
-/*var req_data = {
-    username : "bob",
-    home_cord_first : -122.6810424, 
-    home_cord_second: 45.509023
-}*/
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 router.use(express.json());
 
 module.exports = req_body => {
-    router.post("/test_db_insert", (req, res) => {
+    console.log(' inserting new user ');
+    
     fs.readFile('./users.json', 'utf8', (err, jsonString) => {
         if (err) {
             console.log("File read failed:", err)
-            res.end()
-            return
+            //res.end()
+            return;
         }
   
         let req_username = req_body.username;
@@ -44,14 +40,14 @@ module.exports = req_body => {
         fs.writeFile('./users.json', new_json_string, err => {
             if(err){
                 console.log(err)
+                return false;
             }
             else
             {
                 console.log("write successful");
+                return true;
             }
         });
-        res.end();
     })
     // res.end()
-});
 };

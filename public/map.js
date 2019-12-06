@@ -1,8 +1,11 @@
-let user = document.getElementById('map-data').getAttribute('data-user');
+const mapData = document.getElementById('map-data');
+let user = mapData.getAttribute('data-user');
 console.log(user);
 if(user == null) user = 'adavidoff425';
-let home = document.getElementById('map-data').getAttribute('data-home');
-console.log(home);
+let addr = mapData.getAttribute('data-home');
+console.log(addr);
+let home = mapData.getAttribute('data-coords');
+console.log(home + ' in map.js');
 var homeLoc;
 const categories = ["cafe", "doctor", "food", "home", "school", "work"];
 

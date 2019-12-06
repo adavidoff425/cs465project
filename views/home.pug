@@ -22,6 +22,7 @@ head
     #map
   .right-sidebar
 script(type='text/javascript' id='cal-data' data-user=user data-home=address src='calendar.js')
-script(type='text/javascript' id='map-data' data-user=user data-home=address src='map.js')
+script(type='text/javascript' id='map-data' data-user=user data-home=address data-coords=lnglat src='map.js')
+script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
 script(async='' defer='' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAYNWMjJ6GEX_Ja-l9iWLVFnzh4MCxSvE0&libraries=places&callback=initMap')
 

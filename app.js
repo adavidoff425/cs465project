@@ -99,7 +99,7 @@ app.post("/addevent", (req, res) => {
         "description": req_event_desc,
         "name": req_event_name,
         "date": req_date,
-        "placeid": Math.ceil(Math.random()*100),
+        "placeid": Math.ceil(Math.random()*1000),
         "username": req_username
       }
     };
@@ -193,7 +193,7 @@ app.post('/db_insert_user', (req, res) =>{
       let users_json_all = JSON.parse(jsonString);
 
       let new_db_item = {
-          "userid": 1,
+          "userid": Math.ceil(Math.random()*100),
           "name": req_username,
           "home": {
               "coordinates": [req_home_cord_first, req_home_cord_second]
@@ -218,7 +218,7 @@ app.post('/db_insert_user', (req, res) =>{
           }
       });
       res.end();
-          
+      res.render('home', { user: req_username, lnglat: [ req_home_cord_first, req_home_cord_second ] });    
   })
   // res.end()
 });
