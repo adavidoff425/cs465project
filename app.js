@@ -44,7 +44,6 @@ app.get("/home", function(req, res) {
 });
 
 app.post("/test_db", (req, res) => {
-  //console.log("here");
   fs.readFile("./public/places.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("File read failed:", err);
@@ -52,14 +51,11 @@ app.post("/test_db", (req, res) => {
     }
     let i = 0;
     let return_json = [];
-    let req_username = req.body.username;
+    let req_username = app.locals.user;
     let db_json = JSON.parse(jsonString)["features"];
 
-    //console.log(req_username);
 
     for (i = 0; i < db_json.length; i++) {
-      //console.log(db_json[i]["properties"]["username"]);
-
       if (db_json[i]["properties"]["username"] == req_username) {
         if (db_json[i]["properties"]["category"] != "home") {
           return_json.push(db_json[i]);
@@ -113,9 +109,6 @@ app.post("/addevent", (req, res) => {
 
   db_json_all["features"].push(new_db_item);
 
-    console.log(+db_json_all);
-    console.log(db_json_all["features"]);
-
     let new_json_string = JSON.stringify(db_json_all);
     fs.writeFile("./public/places.json", new_json_string, err => {
       if (err) {
@@ -126,7 +119,10 @@ app.post("/addevent", (req, res) => {
     });
     res.end();
   });
-  res.render("calendar", { user: req.body.username });
+  if(app.locals.user != null) {
+    const user = isUser(app.locals.user);
+    res.render("home", { user: app.locals.user, address: user.home.address, lnglat: user.home.coordinates });
+  }
 });
 
 app.post("/test_db_insert", (req, res) => {
@@ -165,9 +161,6 @@ app.post("/test_db_insert", (req, res) => {
     };
 
     db_json_all["features"].push(new_db_item);
-
-    console.log(+db_json_all);
-    console.log(db_json_all["features"]);
 
     let new_json_string = JSON.stringify(db_json_all);
     fs.writeFile("./db.json", new_json_string, err => {

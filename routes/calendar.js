@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var isUser = require('./users');
 
-/* GET landing page. */
+/* GET calendar page. */
 router.get('/', function(req, res, next) {
   if(req.app.locals.user != null) {
     const user = isUser(req.app.locals.user);

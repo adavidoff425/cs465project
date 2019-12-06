@@ -1,7 +1,7 @@
 const mapData = document.getElementById('map-data');
 let user = mapData.getAttribute('data-user');
 console.log(user);
-if(user == null) user = 'adavidoff425';
+if(user == null) user = 'adavidoff425'; // default user used for testing
 let addr = mapData.getAttribute('data-home');
 console.log(addr);
 let home = mapData.getAttribute('data-coords');

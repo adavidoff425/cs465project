@@ -1,3 +1,12 @@
+const calData = document.getElementById('cal-data');
+let user = calData.getAttribute('data-user');
+console.log(user);
+if(user == null) user = 'adavidoff425'; // default user used for testing
+let addr = calData.getAttribute('data-home');
+console.log(addr);
+let home = calData.getAttribute('data-coords');
+console.log(home + ' in calendar.js');
+
 let today = new Date();
 let dateSelected = today;
 let currentMonth = today.getMonth();
@@ -55,7 +64,8 @@ function getEventsDate(date) {
   var dateEvents = [];
   for (var i = 0; i < events.length; i++) {
     var event = events[i];
-    if (event.properties.date === date) {
+    console.log(event);
+    if (event.properties.date === date && event.properties.username === user) { 
       dateEvents.push(event);
     }
   }
