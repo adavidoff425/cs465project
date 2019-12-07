@@ -1,11 +1,11 @@
-const calData = document.getElementById('cal-data');
-let user = calData.getAttribute('data-user');
+const calData = document.getElementById("cal-data");
+let user = calData.getAttribute("data-user");
 console.log(user);
-if(user == null) user = 'adavidoff425'; // default user used for testing
-let addr = calData.getAttribute('data-home');
+if (user == null) user = "adavidoff425"; // default user used for testing
+let addr = calData.getAttribute("data-home");
 console.log(addr);
-let home = calData.getAttribute('data-coords');
-console.log(home + ' in calendar.js');
+let home = calData.getAttribute("data-coords");
+console.log(home + " in calendar.js");
 
 let today = new Date();
 let dateSelected = today;
@@ -60,18 +60,6 @@ $.ajax({
   }
 });
 
-function getEventsDate(date) {
-  var dateEvents = [];
-  for (var i = 0; i < events.length; i++) {
-    var event = events[i];
-    console.log(event);
-    if (event.properties.date === date && event.properties.username === user) { 
-      dateEvents.push(event);
-    }
-  }
-  return dateEvents;
-}
-
 //render the page
 show(currentMonth, currentYear);
 
@@ -114,7 +102,6 @@ function jump() {
 }
 
 function show(month, year) {
-  console.log(dateSelected.getUTCDate());
   $.ajax({
     async: false,
     type: "post",
@@ -128,16 +115,6 @@ function show(month, year) {
       console.log("complete");
     }
   });
-
-  var currentDateSelected =
-    dateSelected.getMonth() +
-    1 +
-    "/" +
-    dateSelected.getDate() +
-    "/" +
-    dateSelected.getFullYear();
-
-  getEventsDate(currentDateSelected);
 
   let firstDay = new Date(year, month).getDay();
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
@@ -215,7 +192,6 @@ function show(month, year) {
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
           dateSelected.setFullYear(yearSelected.value);
-          console.log(dateSelected.toDateString());
           show(currentMonth, currentYear);
         };
 
@@ -225,17 +201,11 @@ function show(month, year) {
         let getThisDate = currentMonth + 1 + "/" + date + "/" + currentYear;
         let eventsOnDate = getEventsDate(getThisDate);
 
-        //console.log(getThisDate);
-        //console.log(eventsOnDate);
-
         //add the same onclick function for inner divs
         iconCell.onclick = function changeDateSelected() {
-          console.log(event.srcElement.id);
-
           dateSelected.setDate(event.srcElement.id);
           dateSelected.setMonth(monthSelected.value);
           dateSelected.setFullYear(yearSelected.value);
-          console.log("date: " + dateSelected.getUTCDate());
           show(currentMonth, currentYear);
         };
         numberCell.appendChild(cellText);
@@ -247,6 +217,8 @@ function show(month, year) {
 
         if (eventsOnDate.length > 0) {
           iconCell.appendChild(icon);
+          console.log("Date: " + date + ".. Events: ");
+          console.log(eventsOnDate);
         }
 
         if (
@@ -271,10 +243,12 @@ function show(month, year) {
     dateSelected.getMonth() +
     1 +
     "/" +
-    dateSelected.getUTCDate() +
+    (dateSelected.getUTCDate() - 1) +
     "/" +
     dateSelected.getFullYear();
   let selectedEvents = getEventsDate(selectedDateShort);
+
+  console.log(selectedEvents);
 
   //show events for selected date
   for (var j = 0; j < selectedEvents.length; j++) {
@@ -356,4 +330,23 @@ function showEvent(eventName, startTime, endTime) {
   iterator = (iterator + 1).mod(3);
   //append to daily-grid
   dailyViewGrid.appendChild(newEvent);
+}
+
+function getEventsDate(date) {
+  var dateEvents = [];
+  console.log("Getting for " + date);
+  for (var i = 0; i < events.length; i++) {
+    var event = events[i];
+    /*console.log(
+      "date: " +
+        event.properties.date +
+        " username: " +
+        event.properties.username
+    );*/
+    if (event.properties.date === date && event.properties.username === user) {
+      console.log("yes " + date + " " + user);
+      dateEvents.push(event);
+    }
+  }
+  return dateEvents;
 }
