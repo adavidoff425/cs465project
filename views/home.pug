@@ -13,13 +13,14 @@ head
     a(href='/calendar')
       .link-wrapper
         | Calendar
+    a(href='/')
+      .link-wrapper
+        | Sign Out
 .site-body
   .left-sidebar
   .page-content
-    .nav-links
-      a(href='/') Sign Out
-      a(href='/calendar') View Calendar
-    #map
+    .map-wrap
+      #map
   .right-sidebar
 script(type='text/javascript' id='map-data' data-user=user data-home=address data-coords=lnglat src='map.js')
 script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
