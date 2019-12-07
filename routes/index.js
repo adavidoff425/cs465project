@@ -32,9 +32,18 @@ router.post('/submit', function(req, res, next) {
   req.app.locals.user = username;
   const userSearch = isUser(username);
   if(userSearch != null) {
+    if(userSearch.home == null) {
+	    userSearch.home = ({
+	        "address": "2758 se 52nd ave",
+                "coordinates": [
+                    -122.6810424,
+                    45.509023 
+	    });
+    }
     res.render('home', { user: username, address: userSearch.home.address, lnglat: userSearch.home.coordinates });
   } else {
     var address = req.body.address;
+    if(address == null) address = "2758 se 52nd ave";
     const results = homeLoc(address).then(result => {
       var req_data = {
         username : username,
