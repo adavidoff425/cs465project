@@ -43,8 +43,13 @@ router.post('/submit', function(req, res, next) {
     }
     res.render('home', { user: username, address: userSearch.home.address, lnglat: userSearch.home.coordinates });
   } else {
+    // console.log("here")
     var address = req.body.address;
-    if(address == null) address = "2758 se 52nd ave";
+    // console.log(req.body.address=='')
+    if(address == ''){
+      // console.log("in if")
+       address = "2758 se 52nd ave";
+    }
     const results = homeLoc(address).then(result => {
       var req_data = {
         username : username,
