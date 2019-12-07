@@ -38,6 +38,7 @@ router.post('/submit', function(req, res, next) {
                 "coordinates": [
                     -122.6810424,
                     45.509023 
+		]
 	    });
     }
     res.render('home', { user: username, address: userSearch.home.address, lnglat: userSearch.home.coordinates });
