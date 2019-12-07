@@ -126,7 +126,7 @@ function initMap() {
 	// Defines the custom marker icons using place's category
 	map.data.setStyle((feature) => {
 		var img = `./img/icon_${feature.getProperty('category')}.png`;
-		if(`${feature.getProperty('category')}` == 'home') {
+		if(`${feature.getProperty('category')}` == 'home' && `${feature.getProperty('username')}` == user) {
 		    var lat = parseFloat(`${feature.getGeometry().get().lat()}`); 
 			var lng = parseFloat(`${feature.getGeometry().get().lng()}`);
 			homeLoc = new google.maps.LatLng({ lat: lat, lng: lng });

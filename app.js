@@ -202,11 +202,6 @@ app.post('/db_insert_user', (req, res) =>{
 
       users_json_all["users"].push(new_db_item);
 
-      // console.log(req_home_cord)
-      // console.log(users_json_all);
-      // console.log(users_json_all["users"]);
-      
-
       let new_json_string = JSON.stringify(users_json_all);
       fs.writeFile('./users.json', new_json_string, err => {
           if(err){
